@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>上海第二工业大学 - 现任领导 - 党委副书记 校长 谢华清</title>
+  <style>
+    /* 全局样式重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Microsoft Yahei", sans-serif;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .banner-header {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: url('images/picture1.png') no-repeat center center / cover;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1% 3%;
+      box-sizing: border-box;
+    }
+
+    /* 左侧校徽样式 */
+    .banner-logo img {
+      height: 80px;
+      width: auto;
+      vertical-align: middle;
+    }
+
+    /* 右侧导航样式 */
+    .banner-nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .banner-nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+    }
+
+    /* 导航链接 hover 动画 */
+    .banner-nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-color: #0023F5;
+      transition: width 0.3s ease;
+    }
+
+    .banner-nav a:hover::after {
+      width: 100%;
+    }
+
+    /* 面包屑导航样式修复 */
+    .breadcrumb {
+      position: absolute;
+      left: 3%;
+      bottom: 3%;
+      z-index: 10;
+      display: flex; /* 使用flex布局让链接和分隔符对齐 */
+      align-items: center;
+      gap: 10px; /* 链接与分隔符之间的间距 */
+    }
+
+    .breadcrumb a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer; /* 链接保持手形指针 */
+    }
+
+    .breadcrumb a:hover {
+      color: #ffd700;
+    }
+
+ .breadcrumb .separator {
+    color: #fff;
+    margin: 0 10px;
+    font-family: "Courier New", monospace;
+    cursor: text !important; /* 强制文本光标 */
+    pointer-events: auto; /* 允许响应鼠标事件 */
+    user-select: none; /* 禁止选中分隔符 */
+  }
+
+    .banner h1 {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      margin: 0px;
+      font-size: 24px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+    }
+
+    /* 学校介绍标题样式 */
+    .school-title {
+      font-size: 30px;
+      text-align: center;
+      margin: 30px 0;
+      color: #003366;
+    }
+
+    /* 主体内容 - 段落缩进样式 */
+    .content {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 0px;
+    }
+
+   .content a {
+      color: #000000;
+      text-decoration: none;
+}
+
+    .content a:hover {
+      color: #0023f5;
+    }
+
+
+    .content p {
+      text-indent: 2em;
+      margin-bottom: 0px;
+    }
+
+    .content p[style*="text-align:center"],
+    .content p[style*="display:block"],
+    .content p[style*="color:#666"] {
+      text-indent: 0;
+    }
+
+    .section {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    /* 底部区域 */
+    footer {
+      background: #003366;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #ffd700;
+    }
+
+    .footer-logo img {
+      max-width: 400px;
+      margin: 10px 0;
+    }
+
+/* 图标容器：横向排列 */
+.icon-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* 图标间距 */
+}
+
+/* 单个图标项：相对定位（为二维码绝对定位做容器） */
+.icon-item {
+  position: relative; 
+}
+
+/* 图标样式（可调整尺寸） */
+.social-icon {
+  width: 48px; 
+  cursor: pointer; /* 鼠标悬浮变手型 */
+}
+
+/* 二维码样式：默认隐藏，绝对定位 */
+.qrcode {
+  position: absolute; 
+  top: -120px; /* 二维码在图标上方（可调整位置，如 bottom: 120% 放下方） */
+  left: 50%; 
+  transform: translateX(-50%); /* 水平居中 */
+  width: 100px; /* 二维码尺寸 */
+  opacity: 0; /* 透明隐藏 */
+  visibility: hidden; /* 隐藏（避免占空间） */
+  transition: all 0.3s ease; /* 过渡动画 */
+  z-index: 999; /* 确保层级最高 */
+}
+
+/* 悬停时显示二维码 */
+.icon-item:hover .qrcode {
+  opacity: 1;
+  visibility: visible;
+}
+
+    .contact {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .copyright {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .copyright a {
+      color: #ffffff; /* 文字设为白色 */
+      text-decoration: none; /* 去掉下划线 */
+}
+
+     .copyright a:hover {
+        color: #ffd700; /* 悬停时变金色，与导航 hover 效果统一 */
+        text-decoration: none; /* 确保 hover 时仍无下划线 */
+}
+  </style>
+</head>
+
+<body>
+  <!-- 横幅区域 -->
+  <header class="banner-header">
+    <div class="banner-logo">
+      <img src="images/二工大校名校徽6.png" alt="上海第二工业大学校徽">
+    </div>
+    <!-- 修复后的面包屑导航：移除手动添加的">" -->
+<div class="breadcrumb">
+  <a href="#">首页</a>
+  <span class="separator">></span>
+  <a href="#">学校概况</a>
+  <span class="separator">></span>
+  <a href="#">现任领导</a>
+</div>
+    <nav class="banner-nav">
+      <a href="#">学校介绍</a>
+      <a href="#">现任领导</a>
+      <a href="#">校史沿革</a>
+      <a href="#">校园导航</a>
+      <a href="#">学校标识</a>
+    </nav>
+  </header>
+  <h1 class="school-title">党委副书记 校长 谢华清</h1>
+
+  <!-- 主体内容 -->
+  <main class="content">
+          <p><img src="images/党委副书记 校长 谢华清.jpg" height="400" style="display: block; margin: 0 auto;" /></p>
+          <p>谢华清，男，1970年12月出生，福建古田人，汉族，中共党员，工学博士，教授，博士生导师。现任上海第二工业大学党委副书记、校长。</p>
+
+　　   <p>本科毕业于中国科学技术大学工程热物理专业（五年制），博士毕业于中科院上海硅酸盐研究所材料科学与工程专业。曾先后在美国肯塔基大学机械工程系、韩国国立首尔大学航空与机械工程系先进制造和设计研究所、日本九州大学先导物质化学研究所学习工作。2006年加入上海第二工业大学任教授、院长（2010.4）、副校长（2014.7）、二级教授（2015.1）、校长（2021.3）。获上海第二工业大学首批金桥特聘教授、上海浦江学者、曙光学者、首批上海高校特聘教授（东方学者）、教育部新世纪优秀人才和首批东方学者跟踪计划等人才计划资助。</p>
+
+　　   <p>从事高等教育管理和节能与新能源材料及微尺度传热的研究工作。作为项目负责人先后主持国家自然科学基金重大项目课题、863计划课题等科研任务和教育部新工科项目、上海市重点教改项目等教育研究项目。至今发表SCI收录论文230余篇。据检索，H指数54，论文被SCI源引用超过11000次（截止2022.02），先后10余篇论文入选ESI高被引论文。获上海市自然科学奖二等奖和三等奖各1项（均排名1），获中国产学研合作创新成果奖1项（排名1）、获上海市教学成果奖一等奖1项（排名1）。2014年起连续入选爱思唯尔(Elsevier)中国高被引学者榜单。兼任中国工程热物理学会理事、中国计量测试学会理事（热物性专业委员会委员副主任委员）、上海金属学会副理事长、国家自然科学基金委员会工程与材料学部评审组专家等。</p>
+
+  </main>
+
+  <!-- 底部区域 -->
+  <footer>
+    <div class="footer-links">
+快速链接：   
+      <a href="#">最美科技工作者</a>
+      <a href="#">课程思政</a>
+      <a href="#">智能制造工厂</a>
+      <a href="#">人才招聘</a>
+      <a href="#">本科教育教学审核评估专题网</a>
+    </div>
+    <div class="footer-logo">
+      <img src="images/二工大校名校徽6.png" alt="上海第二工业大学校徽" />
+    </div>
+ <!-- 图标&二维码容器 -->
+  <div class="icon-group">
+    <!-- 图标1 + 二维码1 -->
+    <div class="icon-item">
+      <img src="images/互联网.png" class="social-icon" alt="互联网">
+      <img src="images/互联网.jpg" class="qrcode" alt="互联网">
+    </div>
+    <!-- 图标2 + 二维码2 -->
+    <div class="icon-item">
+      <img src="images/微信公众号.png" class="social-icon" alt="微信公众号">
+      <img src="images/微信公众号.jpg" class="qrcode" alt="微信公众号">
+    </div>
+    <!-- 图标3 + 二维码3 -->
+    <div class="icon-item">
+      <img src="images/新浪微博.png" class="social-icon" alt="新浪微博">
+      <img src="images/新浪微博.jpg" class="qrcode" alt="新浪微博">
+    </div>
+    <!-- 图标4 + 二维码4 -->
+    <div class="icon-item">
+      <img src="images/抖音.png" class="social-icon" alt="抖音">
+      <img src="images/抖音.jpg" class="qrcode" alt="抖音">
+    </div>
+    <!-- 图标5+ 二维码5 -->
+    <div class="icon-item">
+      <img src="images/快手.png" class="social-icon" alt="快手">
+      <img src="images/快手.jpg" class="qrcode" alt="快手">
+    </div>
+    <!-- 图标6+ 二维码6 -->
+    <div class="icon-item">
+      <img src="images/微信视频号.png" class="social-icon" alt="微信视频号">
+      <img src="images/微信视频号.jpg" class="qrcode" alt="微信视频号">
+    </div>
+  </div>
+    <div class="contact">
+      地址：上海市浦东新区金海路2360号 邮编：201209<br />
+      电话：021-50215021
+    </div>
+<div class="copyright">
+  Copyright©2023上海第二工业大学版权所有   
+  <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank">
+    <img src="images/bei.png" alt="备案图标" 
+         style="width:20px; height:20px; vertical-align: middle; margin-right: 5px;">
+    沪公网安备31011502008354号 沪ICP备1902926号-1
+  </a>
+    </div>
+  </footer>
+</body>
+
+</html>
