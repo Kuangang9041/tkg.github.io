@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>上海第二工业大学 - 学校介绍</title>
+  <style>
+    /* 全局样式重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Microsoft Yahei", sans-serif;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .banner-header {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: url('images/picture1.png') no-repeat center center / cover;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1% 3%;
+      box-sizing: border-box;
+    }
+
+    /* 左侧校徽样式 */
+    .banner-logo img {
+      height: 80px;
+      width: auto;
+      vertical-align: middle;
+    }
+
+    /* 右侧导航样式 */
+    .banner-nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .banner-nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+    }
+
+    /* 导航链接 hover 动画 */
+    .banner-nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-color: #0023F5;
+      transition: width 0.3s ease;
+    }
+
+    .banner-nav a:hover::after {
+      width: 100%;
+    }
+
+    /* 面包屑导航样式修复 */
+    .breadcrumb {
+      position: absolute;
+      left: 3%;
+      bottom: 3%;
+      z-index: 10;
+      display: flex; /* 使用flex布局让链接和分隔符对齐 */
+      align-items: center;
+      gap: 10px; /* 链接与分隔符之间的间距 */
+    }
+
+    .breadcrumb a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer; /* 链接保持手形指针 */
+    }
+
+    .breadcrumb a:hover {
+      color: #ffd700;
+    }
+
+    .breadcrumb .separator {
+      color: #fff;
+      margin: 0 0px;
+      font-family: "Courier New", monospace;
+      cursor: text !important; /* 强制文本光标 */
+      pointer-events: auto; /* 允许响应鼠标事件 */
+      user-select: none; /* 禁止选中分隔符 */
+    }
+
+    .banner h1 {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      margin: 0px;
+      font-size: 24px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+    }
+
+    /* 学校介绍标题样式 */
+    .school-title {
+      font-size: 30px;
+      text-align: center;
+      margin: 30px 0;
+      color: #003366;
+    }
+
+    /* 主体内容样式 */
+    .content {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 20px; /* 增加内边距，避免内容贴边 */
+    }
+
+    /* 表格样式（重点修复） */
+    .history-table {
+      width: 100%; /* 表格占满容器宽度 */
+      max-width: 1200px; /* 限制最大宽度，避免过宽 */
+      margin: 0 auto; /* 居中显示 */
+      border-collapse: collapse; /* 合并边框 */
+    }
+   
+    .history-table td {
+      vertical-align: top; /* 顶部对齐，避免文字被图片高度影响 */
+      padding: 20px; /* 增加内边距，让内容更舒展 */
+    }
+
+    /* 左侧图片单元格 */
+    .history-table .img-cell {
+      width: 50%; /* 图片占50%宽度 */
+    }
+
+    /* 右侧文字单元格 */
+    .history-table .text-cell {
+      width: 50%; /* 文字占50%宽度 */
+    }
+
+    /* 图片样式 */
+    .history-table img {
+      max-width: 100%; /* 图片自适应单元格宽度 */
+      height: auto; /* 保持图片比例 */
+      border-radius: 4px; /* 轻微圆角，更美观 */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 轻微阴影 */
+    }
+
+    /* 文字段落样式 */
+    .history-table p {
+      margin-bottom: 16px; /* 段落间距 */
+      line-height: 1.8; /* 行高，提升可读性 */
+    }
+
+    .history-table p:last-child {
+      margin-bottom: 0; /* 最后一段取消底部间距 */
+    }
+
+ /* leader 表格样式调整 */
+.leader-table {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+/* 单元格内容左右居中对齐（核心） */
+.leader-table td, .leader-table th {
+  border: 1px solid #ccc; /* 虚框效果，颜色可自行调整 */
+  text-align: center; /* 文字和图片左右居中 */
+  vertical-align: middle; /* 垂直方向居中（可选，更美观） */
+  padding: 20px;
+}
+
+/* 表头文字样式（如“历任党委书记”） */
+.leader-table th {
+  font-family: "方正黑体_GBK", serif; /* 表头字体（示例：宋体） */
+  font-size: 24px; /* 表头字号 */
+  font-weight: bold; /* 加粗 */
+  background-color: #f5f5f5; /* 表头背景色（可选） */
+}
+
+/* 任职时间文字样式（第一个p标签） */
+.leader-table td p:first-child {
+  font-family: "SimHei", sans-serif; /* 任职时间字体（示例：黑体） */
+  font-size: 20px; /* 任职时间字号 */
+  color: #666; /* 颜色（可选） */
+}
+
+.leader-table td .person-name {
+  font-family: "Microsoft Yahei", sans-serif; /* 人名字体 */
+  font-size: 20px; /* 调整字号（示例24px，可按需修改） */
+  color: #333;
+  margin: -5px 0; /* 与上下内容的间距 */
+  font-weight: bold; /* 可选：加粗突出人名 */
+}
+
+/* 图片样式补充（确保居中且不超出） */
+.leader-table img {
+  max-height: 180px; /* 限制图片最大宽度（根据需求调整） */
+  height: auto;
+  margin: 10px auto 0; /* 与文字间距 */
+}
+
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .row .text {
+      flex: 1;
+      margin-right: 0px;
+    }
+
+    .row .image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .row .image img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #eee;
+    }
+
+    /* 底部区域 */
+    footer {
+      background: #003366;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 40px; /* 与表格保持距离 */
+    }
+
+    .footer-links {
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #ffd700;
+    }
+
+    .footer-logo img {
+      max-width: 400px;
+      margin: 10px 0;
+    }
+
+    /* 图标容器：横向排列 */
+    .icon-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px; /* 图标间距 */
+    }
+
+    /* 单个图标项：相对定位 */
+    .icon-item {
+      position: relative; 
+    }
+
+    /* 图标样式 */
+    .social-icon {
+      width: 48px; 
+      cursor: pointer;
+    }
+
+    /* 二维码样式 */
+    .qrcode {
+      position: absolute; 
+      top: -120px;
+      left: 50%; 
+      transform: translateX(-50%);
+      width: 100px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .icon-item:hover .qrcode {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .contact {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .copyright {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .copyright a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .copyright a:hover {
+      color: #ffd700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 横幅区域 -->
+  <header class="banner-header">
+    <div class="banner-logo">
+      <img src="images/二工大校名校徽6.png" alt="上海第二工业大学校徽">
+    </div>
+    <div class="breadcrumb">
+      <a href="https://www.tangkuangang.xyz">首页</a>
+      <span class="separator">>&nbsp学校概况</span>
+      <span class="separator">>&nbsp校史沿革</span>
+    </div>
+    <nav class="banner-nav">
+      <a href="学校介绍.html">学校介绍</a>
+      <a href="现任领导.html">现任领导</a>
+      <a >校史沿革</a>
+      <a href="校园导航.html">校园导航</a>
+      <a href="学校标识.html">学校标识</a>
+    </nav>
+  </header>
+  
+  <h1 class="school-title">校史沿革</h1>
+
+  <!-- 主体内容：修复后的表格 -->
+  <table class="history-table">
+    <tr>
+      <!-- 左侧图片单元格 -->
+      <td class="img-cell">
+        <img src="images/校史回眸.jpg" alt="校史回眸">
+        <!-- 注意：确保图片路径正确，若图片不存在会显示alt文字 -->
+      </td>
+      <!-- 右侧文字单元格 -->
+      <td class="text-cell">
+        <p>1960年4月29日，上海市人民委员会第十六次会议决定成立上海市业余工业大学。</p>
+        <p>1965年更名为上海市半工半读工业大学，树立起“全日制半工半读的一面红旗”。</p>
+        <p>1972年12月5日经市委批准恢复“上海市业余工业大学”名称。</p>
+        <p>1984年7月25日，市人民政府决定更名为上海第二工业大学，成为成人教育战线上的排头兵；</p>
+        <p>2001年11月20日，经人民政府批准，与上海东沪职业技术学院合并，组建新的“上海第二工业大学”，举起“发展高等职业教育”的旗帜。建校六十余年，“二工大人”坚持为社会发展和经济建设服务，努力培育应用技术人才，为上海现代化建设输送了以全国劳模和优秀发明家包起帆、李斌等为代表的各级各类技术与应用型人才近20万名，被誉为劳动模范的摇篮、高级技术人才深造的平台。</p>
+      </td>
+    </tr>
+<table class="leader-table">
+<thead><tr><th>历任党委书记</th><th>历任校长</th></tr></thead>
+<tr>
+<td><p>任职时间:1963年6月-1967年1月</p><p class="person-name">江征帆</p><img src="images/江征帆.jpg" alt="江征帆"></td>
+<td><p>任职时间:1960年4月-1961年4月</p><p class="person-name">钟民</p><img src="images/钟民.jpg" alt="钟民"></td>
+</tr>
+<tr>
+<td><p>任职时间:1979年1月-1983年9月</p><p class="person-name">赵丁夫</p><img src="images/赵丁夫.jpg" alt="赵丁夫"></td>
+<td><p>任职时间:1961年4月-1967年9月</p><p class="person-name">张祺</p><img src="images/张祺.jpg" alt="张祺"></td>
+</tr>
+<tr>
+<td><p>任职时间:1983年9月-1991年6月</p><p class="person-name">浦伋</p><img src="images/浦伋.jpg" alt="浦伋"></td>
+<td><p>任职时间:1979年1月-1983年9月</p><p class="person-name">闵淑芬</p><img src="images/闵淑芬.jpg" alt="闵淑芬"></td>
+</tr>
+<tr>
+<td><p>任职时间:1991年9月-1997年9月</p><p class="person-name">刘全福</p><img src="images/刘全福.jpg" alt="刘全福"></td>
+<td><p>任职时间:1983年9月-1990年4月</p><p class="person-name">汤佩铮</p><img src="images/汤佩铮.jpg" alt="汤佩铮"></td>
+</tr>
+<tr>
+<td><p>任职时间:1997年9月-2004年4月</p><p class="person-name">陈林</p><img src="images/陈林.jpg" alt="陈林"></td>
+<td><p>任职时间:1990年4月-1992年3月</p><p class="person-name">姚纪梅</p><img src="images/姚纪梅.jpg" alt="姚纪梅"></td>
+</tr>
+<tr>
+<td><p>任职时间:2004年4月-2005年12月</p><p class="person-name">李进</p><img src="images/李进.jpg" alt="李进"></td>
+<td><p>任职时间:1992年3月-2001年11月</p><p class="person-name">王式正</p><img src="images/王式正.jpg" alt="王式正"></td>
+</tr>
+<tr>
+<td><p>任职时间:2006年3月- 2011年4月</p><p class="person-name">徐佩莉</p><img src="images/徐佩莉.jpg" alt="徐佩莉"></td>
+<td><p>任职时间:2001年11月-2004年5月</p><p class="person-name">李进</p><img src="images/李进.jpg" alt="李进"></td>
+</tr>
+<tr>
+<td><p>任职时间:2011年4月-2013年11月</p><p class="person-name">阮显忠</p><img src="images/阮显忠.jpg" alt="阮显忠"></td>
+<td><p>任职时间:2004年5月-2012年12月</p><p class="person-name">胡寿根</p><img src="images/胡寿根.jpg" alt="胡寿根"></td>
+</tr>
+<tr>
+<td><p>任职时间:2013年11月-2019年3月</p><p class="person-name">宋宝儒</p><img src="images/宋宝儒.jpg" alt="宋宝儒"></td>
+<td><p>任职时间:2013年1月-2021年3月</p><p class="person-name">俞涛</p><img src="images/俞涛.jpg" alt="俞涛"></td>
+</tr>
+<tr>
+<td><p>任职时间:2019年3月—2023年9月</p><p class="person-name">吴松</p><img src="images/吴松.jpg" alt="吴松"></td>
+<td><p></p><p class="person-name"></p><img src="" alt=""></td>
+</tr>
+
+
+
+
+
+
+</table>
+
+
+  <main class="content">
+    <section class="section">
+    </section>
+  </main>
+
+  <!-- 底部区域 -->
+  <footer>
+    <div class="footer-links">
+      快速链接：   
+      <a href="#">最美科技工作者</a>
+      <a href="#">课程思政</a>
+      <a href="#">智能制造工厂</a>
+      <a href="#">人才招聘</a>
+      <a href="#">本科教育教学审核评估专题网</a>
+    </div>
+    <div class="footer-logo">
+      <img src="images/二工大校名校徽6.png" alt="上海第二工业大学校徽" />
+    </div>
+    <div class="icon-group">
+      <div class="icon-item">
+        <img src="images/互联网.png" class="social-icon" alt="互联网">
+        <img src="images/互联网.jpg" class="qrcode" alt="互联网">
+      </div>
+      <div class="icon-item">
+        <img src="images/微信公众号.png" class="social-icon" alt="微信公众号">
+        <img src="images/微信公众号.jpg" class="qrcode" alt="微信公众号">
+      </div>
+      <div class="icon-item">
+        <img src="images/新浪微博.png" class="social-icon" alt="新浪微博">
+        <img src="images/新浪微博.jpg" class="qrcode" alt="新浪微博">
+      </div>
+      <div class="icon-item">
+        <img src="images/抖音.png" class="social-icon" alt="抖音">
+        <img src="images/抖音.jpg" class="qrcode" alt="抖音">
+      </div>
+      <div class="icon-item">
+        <img src="images/快手.png" class="social-icon" alt="快手">
+        <img src="images/快手.jpg" class="qrcode" alt="快手">
+      </div>
+      <div class="icon-item">
+        <img src="images/微信视频号.png" class="social-icon" alt="微信视频号">
+        <img src="images/微信视频号.jpg" class="qrcode" alt="微信视频号">
+      </div>
+    </div>
+    <div class="contact">
+      地址：上海市浦东新区金海路2360号 邮编：201209<br />
+      电话：021-50215021
+    </div>
+    <div class="copyright">
+      Copyright©2023上海第二工业大学版权所有   
+      <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank">
+        <img src="images/bei.png" alt="备案图标" 
+             style="width:20px; height:20px; vertical-align: middle; margin-right: 5px;">
+        沪公网安备31011502008354号 沪ICP备1902926号-1
+      </a>
+    </div>
+  </footer>
+</body>
+
+</html>

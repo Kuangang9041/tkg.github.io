@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>二工大-副本</title>
     <style>
         body {
@@ -14,7 +15,7 @@
             overflow-x: hidden; /* 防止横向滚动条 */
         }
 
-  .banner {
+        .banner {
             position: relative;
             width: 100%; /* 宽度充满父容器 */
             aspect-ratio: 1920 / 940; /* 固定宽高比（关键） */
@@ -40,15 +41,35 @@
             opacity: 0;
             transition: opacity 0.8s ease;
         }
-        .item.active {
-            opacity: 1;
-            z-index: 1;
-        }
         .item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
+        }
+
+        /* 轮播动画 - 自动切换图片 */
+        @keyframes carousel {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            30% { opacity: 1; }
+            40% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        /* 第一张图动画 */
+        .item:nth-child(1) {
+            animation: carousel 15s infinite 0s;
+        }
+
+        /* 第二张图动画 - 延迟5秒 */
+        .item:nth-child(2) {
+            animation: carousel 15s infinite 5s;
+        }
+
+        /* 第三张图动画 - 延迟10秒 */
+        .item:nth-child(3) {
+            animation: carousel 15s infinite 10s;
         }
 
         /* 校名校徽（左上角） */
@@ -74,7 +95,7 @@
             height: clamp(100px, 10vh, 120px);
         }
 
-        /* 搜索功能（右上角） */
+        /* 搜索功能（右上角）- 改为悬停显示 */
         .banner-search {
             position: absolute;
             top: 20px;
@@ -95,6 +116,10 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             margin-top: 5px;
+        }
+        /* 悬停显示搜索框（替代JS点击事件） */
+        .banner-search:hover .search-box {
+            display: block;
         }
         .search-box input {
             padding: 6px 10px;
@@ -195,7 +220,7 @@
         <!-- 轮播图 -->
         <div class="banner-slideshow">
             <div class="slideshow-items">
-                <div class="item active"><img src="school/images/立秋.jpg" alt="立秋"></div>
+                <div class="item"><img src="school/images/立秋.jpg" alt="立秋"></div>
                 <div class="item"><img src="school/images/建军节.jpg" alt="建军节"></div>
                 <div class="item"><img src="school/images/大暑.jpg" alt="大暑"></div>
             </div>
@@ -228,9 +253,9 @@
                     <ul class="sub-menu">
                         <li><a href="school/学校介绍.html">学校介绍</a></li>
                         <li><a href="school/现任领导.html">现任领导</a></li>
-                        <li><a href="school/校史沿革.html">校史沿革</a></li>
-                        <li><a href="school/校园导航.html">校园导航</a></li>
-                        <li><a href="school/学校标识.html">学校标识</a></li>
+                        <li><a href="#">校史沿革</a></li>
+                        <li><a href="#">校园导航</a></li>
+                        <li><a href="#">学校标识</a></li>
                     </ul>
                 </li>
                 <li>
@@ -323,43 +348,5 @@
             </ul>
         </header>
     </div>
-
-    <script>
-        // 轮播图逻辑
-        document.addEventListener('DOMContentLoaded', function() {
-            const items = document.querySelectorAll('.item');
-            let currentIndex = 0;
-            
-            const firstImage = items[0].querySelector('img');
-            if (firstImage.complete) {
-                items[0].classList.add('active');
-            } else {
-                firstImage.addEventListener('load', () => items[0].classList.add('active'));
-            }
-            
-            function showNextImage() {
-                items[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % items.length;
-                items[currentIndex].classList.add('active');
-            }
-            
-            setInterval(showNextImage, 5000);
-        });
-
-        // 搜索框逻辑
-        const searchBtn = document.getElementById('search-btn');
-        const searchBox = document.getElementById('search-box');
-        const bannerSearch = document.querySelector('.banner-search');
-        
-        searchBtn.addEventListener('click', () => {
-            searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!bannerSearch.contains(e.target)) {
-                searchBox.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
