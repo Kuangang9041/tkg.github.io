@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上海第二工业大学历年本科招生分数线查询</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入SheetJS用于处理Excel文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#722ED1',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#4E5969',
+                        'primary-light': '#E8F3FF'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+        }
+    </style>
+    
+    <style>
+        /* 基础动画效果 */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 表格滚动条美化 */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 8px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* 加载动画 */
+        .loader {
+            border-top-color: #165DFF;
+            animation: spinner 0.6s linear infinite;
+        }
+        
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen flex flex-col">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 transition-custom">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center space-x-3 mb-3 md:mb-0">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                    <i class="fa fa-graduation-cap text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-[clamp(1.2rem,3vw,1.6rem)] font-bold text-gray-800">上海第二工业大学</h1>
+                    <p class="text-sm text-gray-500">历年本科招生分数线查询系统</p>
+                </div>
+            </div>
+            
+            <nav class="flex items-center space-x-6">
+                <a href="#" class="hidden md:block text-primary font-medium hover:text-primary/80 transition-custom">
+                    <i class="fa fa-search mr-1"></i> 分数查询
+                </a>
+                <a href="#" class="text-gray-600 hover:text-primary transition-custom">
+                    <i class="fa fa-info-circle mr-1"></i> 学校简介
+                </a>
+                <a href="#" class="text-gray-600 hover:text-primary transition-custom">
+                    <i class="fa fa-phone mr-1"></i> 招生咨询
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- 页面标题 -->
+        <div class="text-center mb-10 fade-in">
+            <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-gray-800 mb-3 text-shadow">
+                历年本科招生分数线查询
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                本系统提供上海第二工业大学2020-2025年各省各专业本科招生分数线查询服务，
+                数据仅供参考，最新招生信息请以学校官方发布为准。
+            </p>
+        </div>
+        
+        <!-- 数据加载状态提示 -->
+        <div id="dataLoadingIndicator" class="bg-white rounded-xl shadow-md p-6 mb-8 max-w-3xl mx-auto fade-in">
+            <div class="flex items-center justify-center">
+                <div class="loader w-8 h-8 rounded-full border-4 border-gray-200 mr-3"></div>
+                <p class="text-gray-600">正在加载数据，请稍候...</p>
+            </div>
+        </div>
+        
+        <!-- 查询区域 -->
+        <div id="queryArea" class="bg-white rounded-xl shadow-md p-6 mb-8 max-w-3xl mx-auto fade-in hidden" style="animation-delay: 0.1s">
+            <h3 class="text-xl font-semibold mb-5 text-gray-800 flex items-center">
+                <i class="fa fa-filter text-primary mr-2"></i>查询条件
+            </h3>
+            
+            <form id="queryForm" class="space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- 省份选择 -->
+                    <div>
+                        <label for="province" class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fa fa-map-marker text-primary mr-1"></i>省份
+                        </label>
+                        <select id="province" name="province" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-custom">
+                            <option value="">请选择省份</option>
+                            <!-- 省份选项将通过JavaScript动态生成 -->
+                        </select>
+                    </div>
+                    
+                    <!-- 年份选择 -->
+                    <div>
+                        <label for="year" class="block text-sm font-medium text-gray-700 mb-1">
+                            <i class="fa fa-calendar text-primary mr-1"></i>年份
+                        </label>
+                        <select id="year" name="year" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-custom">
+                            <option value="">请选择年份</option>
+                            <option value="2025">2025年</option>
+                            <option value="2024">2024年</option>
+                            <option value="2023">2023年</option>
+                            <option value="2022">2022年</option>
+                            <option value="2021">2021年</option>
+                            <option value="2020">2020年</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- 查询按钮 -->
+                <div class="text-center">
+                    <button type="submit" 
+                        class="bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-8 rounded-lg shadow-md hover:shadow-lg transition-custom flex items-center justify-center mx-auto">
+                        <i class="fa fa-search mr-2"></i>查询分数线
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- 结果展示区域 -->
+        <div id="resultArea" class="hidden fade-in" style="animation-delay: 0.2s">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <!-- 结果标题 -->
+                <div class="bg-primary-light px-6 py-4 border-b border-gray-100">
+                    <h3 id="resultTitle" class="text-xl font-semibold text-gray-800"></h3>
+                    <p id="resultSubtitle" class="text-sm text-gray-600 mt-1"></p>
+                </div>
+                
+                <!-- 加载状态 -->
+                <div id="loadingIndicator" class="hidden py-16 flex flex-col items-center justify-center">
+                    <div class="loader w-10 h-10 rounded-full border-4 border-gray-200 mb-4"></div>
+                    <p class="text-gray-600">正在查询数据，请稍候...</p>
+                </div>
+                
+                <!-- 错误提示 -->
+                <div id="errorMessage" class="hidden py-16 px-6 text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
+                        <i class="fa fa-exclamation-triangle text-red-500 text-2xl"></i>
+                    </div>
+                    <p id="errorText" class="text-gray-700 mb-4"></p>
+                    <button id="retryButton" 
+                        class="text-primary hover:text-primary/80 font-medium transition-custom">
+                        <i class="fa fa-refresh mr-1"></i>重新尝试
+                    </button>
+                </div>
+                
+                <!-- 数据表格 -->
+                <div id="dataTableContainer" class="hidden overflow-x-auto custom-scrollbar">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr id="tableHeader">
+                                <!-- 表头将通过JavaScript动态生成 -->
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- 表格内容将通过JavaScript动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 无数据提示 -->
+                <div id="noDataMessage" class="hidden py-16 px-6 text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                        <i class="fa fa-folder-open-o text-gray-400 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700">未找到相关数据</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">上海第二工业大学</h4>
+                    <p class="text-gray-400 text-sm">
+                        上海第二工业大学是一所以工科为主，管经文理艺多学科协调发展的上海市属普通高等学校。
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">招生信息</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-custom"><i class="fa fa-angle-right mr-1"></i> 招生章程</a></li>
+                        <li><a href="#" class="hover:text-white transition-custom"><i class="fa fa-angle-right mr-1"></i> 专业介绍</a></li>
+                        <li><a href="#" class="hover:text-white transition-custom"><i class="fa fa-angle-right mr-1"></i> 招生计划</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex items-center"><i class="fa fa-map-marker w-5 text-gray-500"></i> 上海市浦东新区金海路2360号</li>
+                        <li class="flex items-center"><i class="fa fa-phone w-5 text-gray-500"></i> 021-50217411</li>
+                        <li class="flex items-center"><i class="fa fa-envelope w-5 text-gray-500"></i> zsb@sspu.edu.cn</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2025 上海第二工业大学招生办公室 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 省份数据（排除北京、天津、青海）
+        const provinces = [
+            "上海", "重庆", "河北", "山西", "辽宁", "吉林", "黑龙江",
+            "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南",
+            "湖北", "湖南", "广东", "海南", "四川", "贵州", "云南",
+            "陕西", "甘肃", "内蒙古", "广西", "宁夏", "新疆", "西藏"
+        ];
+        
+        // 全局变量存储Excel数据
+        let excelData = null;
+        
+        // DOM元素
+        const provinceSelect = document.getElementById('province');
+        const yearSelect = document.getElementById('year');
+        const queryForm = document.getElementById('queryForm');
+        const resultArea = document.getElementById('resultArea');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultSubtitle = document.getElementById('resultSubtitle');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        const tableHeader = document.getElementById('tableHeader');
+        const tableBody = document.getElementById('tableBody');
+        const noDataMessage = document.getElementById('noDataMessage');
+        const retryButton = document.getElementById('retryButton');
+        const dataLoadingIndicator = document.getElementById('dataLoadingIndicator');
+        const queryArea = document.getElementById('queryArea');
+        
+        // 初始化省份选择器
+        function initProvinceSelect() {
+            provinces.forEach(province => {
+                const option = document.createElement('option');
+                option.value = province;
+                option.textContent = province;
+                provinceSelect.appendChild(option);
+            });
+        }
+        
+        // 自动加载Excel文件
+        function loadExcelFile() {
+            // 从同一文件夹加载Excel文件
+            fetch('二工大各省各专业历年分数.xlsx')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`无法加载文件: ${response.statusText}`);
+                    }
+                    return response.arrayBuffer();
+                })
+                .then(data => {
+                    try {
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        
+                        // 存储所有工作表数据
+                        excelData = {};
+                        workbook.SheetNames.forEach(sheetName => {
+                            const worksheet = workbook.Sheets[sheetName];
+                            excelData[sheetName] = XLSX.utils.sheet_to_json(worksheet);
+                        });
+                        
+                        // 隐藏加载提示，显示查询区域
+                        dataLoadingIndicator.classList.add('hidden');
+                        queryArea.classList.remove('hidden');
+                    } catch (error) {
+                        console.error('解析Excel文件出错:', error);
+                        showDataLoadError('解析文件时出错，请确保文件格式正确');
+                    }
+                })
+                .catch(error => {
+                    console.error('加载Excel文件出错:', error);
+                    showDataLoadError('加载数据失败，请检查文件是否存在于正确位置');
+                });
+        }
+        
+        // 显示数据加载错误
+        function showDataLoadError(message) {
+            dataLoadingIndicator.innerHTML = `
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-100 mb-3">
+                        <i class="fa fa-exclamation-triangle text-red-500 text-xl"></i>
+                    </div>
+                    <p class="text-red-600 mb-3">${message}</p>
+                    <button id="reloadButton" 
+                        class="bg-primary hover:bg-primary/90 text-white font-medium py-1.5 px-4 rounded-lg transition-custom">
+                        <i class="fa fa-refresh mr-1"></i>重新加载
+                    </button>
+                </div>
+            `;
+            
+            // 添加重新加载按钮事件
+            document.getElementById('reloadButton').addEventListener('click', () => {
+                dataLoadingIndicator.innerHTML = `
+                    <div class="flex items-center justify-center">
+                        <div class="loader w-8 h-8 rounded-full border-4 border-gray-200 mr-3"></div>
+                        <p class="text-gray-600">正在重新加载数据...</p>
+                    </div>
+                `;
+                loadExcelFile();
+            });
+        }
+        
+        // 处理查询表单提交
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const province = provinceSelect.value;
+            const year = yearSelect.value;
+            
+            // 验证输入
+            if (!province) {
+                showError('请选择省份');
+                return;
+            }
+            
+            if (!year) {
+                showError('请选择年份');
+                return;
+            }
+            
+            if (!excelData) {
+                showError('数据未加载完成，请稍后再试');
+                return;
+            }
+            
+            // 显示结果区域和加载状态
+            resultArea.classList.remove('hidden');
+            showLoading();
+            
+            // 模拟加载延迟
+            setTimeout(() => {
+                try {
+                    // 检查省份对应的sheet是否存在
+                    if (!excelData[province]) {
+                        showNoData(`未找到${province}的数据`);
+                        return;
+                    }
+                    
+                    // 从省份数据中筛选出指定年份的数据
+                    const provinceData = excelData[province];
+                    const filteredData = provinceData.filter(item => {
+                        // 假设Excel中的年份列名为"年份"
+                        return item.年份 == year;
+                    });
+                    
+                    if (filteredData.length === 0) {
+                        showNoData(`未找到${province}${year}年的数据`);
+                        return;
+                    }
+                    
+                    // 更新结果标题
+                    resultTitle.textContent = `${province}${year}年本科招生分数线`;
+                    resultSubtitle.textContent = `数据来源：上海第二工业大学招生办公室`;
+                    
+                    // 显示表格数据
+                    displayTableData(filteredData);
+                    
+                } catch (error) {
+                    console.error('查询过程出错:', error);
+                    showError('查询过程中出现错误，请重试');
+                }
+            }, 600);
+        }
+        
+        // 显示表格数据
+        function displayTableData(data) {
+            // 隐藏其他状态，显示表格
+            loadingIndicator.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            noDataMessage.classList.add('hidden');
+            dataTableContainer.classList.remove('hidden');
+            
+            // 清空表格
+            tableHeader.innerHTML = '';
+            tableBody.innerHTML = '';
+            
+            // 如果没有数据，显示无数据提示
+            if (data.length === 0) {
+                showNoData();
+                return;
+            }
+            
+            // 获取表头（使用第一条数据的键）
+            const headers = Object.keys(data[0]);
+            
+            // 创建表头
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
+                tableHeader.appendChild(th);
+            });
+            
+            // 创建表格内容
+            data.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                tr.classList.add('hover:bg-gray-50', 'transition-custom');
+                
+                headers.forEach(header => {
+                    const td = document.createElement('td');
+                    td.textContent = item[header] !== undefined ? item[header] : '';
+                    td.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-700';
+                    tr.appendChild(td);
+                });
+                
+                tableBody.appendChild(tr);
+            });
+        }
+        
+        // 显示加载状态
+        function showLoading() {
+            loadingIndicator.classList.remove('hidden');
+            errorMessage.classList.add('hidden');
+            dataTableContainer.classList.add('hidden');
+            noDataMessage.classList.add('hidden');
+        }
+        
+        // 显示错误信息
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+            loadingIndicator.classList.add('hidden');
+            dataTableContainer.classList.add('hidden');
+            noDataMessage.classList.add('hidden');
+        }
+        
+        // 显示无数据提示
+        function showNoData(message = '未找到符合条件的数据') {
+            noDataMessage.querySelector('p').textContent = message;
+            noDataMessage.classList.remove('hidden');
+            loadingIndicator.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            dataTableContainer.classList.add('hidden');
+        }
+        
+        // 事件监听器
+        function setupEventListeners() {
+            // 初始化省份选择器
+            initProvinceSelect();
+            
+            // 表单提交事件
+            queryForm.addEventListener('submit', handleFormSubmit);
+            
+            // 重试按钮事件
+            retryButton.addEventListener('click', () => {
+                errorMessage.classList.add('hidden');
+            });
+            
+            // 滚动时导航栏样式变化
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 10) {
+                    header.classList.add('py-2');
+                    header.classList.remove('py-4');
+                } else {
+                    header.classList.add('py-4');
+                    header.classList.remove('py-2');
+                }
+            });
+        }
+        
+        // 页面加载完成后初始化并加载Excel文件
+        document.addEventListener('DOMContentLoaded', () => {
+            setupEventListeners();
+            // 自动加载Excel文件
+            loadExcelFile();
+        });
+    </script>
+</body>
+</html>
