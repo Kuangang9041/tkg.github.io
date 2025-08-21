@@ -9,7 +9,17 @@
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     
-    <!-- 配置Tailwind自定义颜色和字体 -->
+    <!-- 引入方正兰亭粗黑_GBK字体 -->
+    <style>
+        @font-face {
+            font-family: 'FZLanTingHei';
+            src: url('FZLTH_GBK.TTF') format('truetype'); /* 假设字体文件与HTML同目录 */
+            font-weight: bold;
+            font-style: normal;
+        }
+    </style>
+    
+    <!-- 配置Tailwind自定义颜色、字体和工具类 -->
     <script>
         tailwind.config = {
             theme: {
@@ -23,14 +33,13 @@
                         'primary-light': '#E8F3FF'
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        fzlanting: ['FZLanTingHei', 'sans-serif'],
                     },
                 }
             }
         }
     </script>
     
-    <!-- 自定义工具类 -->
     <style type="text/tailwindcss">
         @layer utilities {
             .content-auto {
@@ -46,7 +55,7 @@
     </style>
     
     <style>
-        /* 基础动画效果 */
+        /* 基础动画和滚动条样式 */
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -56,7 +65,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 表格滚动条美化 */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -76,7 +84,6 @@
             background: #a8a8a8;
         }
         
-        /* 加载动画 */
         .loader {
             border-top-color: #165DFF;
             animation: spinner 0.6s linear infinite;
@@ -129,21 +136,21 @@
         </div>
         
         <!-- 数据加载状态提示 -->
-        <div id="dataLoadingIndicator" class="bg-white rounded-xl shadow-md p-6 mb-8 max-w-3xl mx-auto fade-in">
+        <div id="dataLoadingIndicator" class="bg-white rounded-xl shadow-md p-6 mb-8 max-w-md mx-auto fade-in">
             <div class="flex items-center justify-center">
                 <div class="loader w-8 h-8 rounded-full border-4 border-gray-200 mr-3"></div>
                 <p class="text-gray-600">正在加载数据，请稍候...</p>
             </div>
         </div>
         
-        <!-- 查询区域 -->
-        <div id="queryArea" class="bg-white rounded-xl shadow-md p-6 mb-8 max-w-3xl mx-auto fade-in hidden" style="animation-delay: 0.1s">
+        <!-- 查询区域 - 宽度减小 -->
+        <div id="queryArea" class="bg-white rounded-xl shadow-md p-6 mb-8 max-w-md mx-auto fade-in hidden" style="animation-delay: 0.1s">
             <h3 class="text-xl font-semibold mb-5 text-gray-800 flex items-center">
                 <i class="fa fa-filter text-primary mr-2"></i>查询条件
             </h3>
             
             <form id="queryForm" class="space-y-5">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="space-y-5">
                     <!-- 省份选择 -->
                     <div>
                         <label for="province" class="block text-sm font-medium text-gray-700 mb-1">
@@ -272,7 +279,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript代码 -->
     <script>
         // 省份数据（排除北京、天津、青海）
         const provinces = [
@@ -315,7 +321,6 @@
         
         // 自动加载Excel文件
         function loadExcelFile() {
-            // 从同一文件夹加载Excel文件
             fetch('二工大各省各专业历年分数.xlsx')
                 .then(response => {
                     if (!response.ok) {
@@ -327,14 +332,12 @@
                     try {
                         const workbook = XLSX.read(data, { type: 'array' });
                         
-                        // 存储所有工作表数据
                         excelData = {};
                         workbook.SheetNames.forEach(sheetName => {
                             const worksheet = workbook.Sheets[sheetName];
                             excelData[sheetName] = XLSX.utils.sheet_to_json(worksheet);
                         });
                         
-                        // 隐藏加载提示，显示查询区域
                         dataLoadingIndicator.classList.add('hidden');
                         queryArea.classList.remove('hidden');
                     } catch (error) {
@@ -363,7 +366,6 @@
                 </div>
             `;
             
-            // 添加重新加载按钮事件
             document.getElementById('reloadButton').addEventListener('click', () => {
                 dataLoadingIndicator.innerHTML = `
                     <div class="flex items-center justify-center">
@@ -382,7 +384,6 @@
             const province = provinceSelect.value;
             const year = yearSelect.value;
             
-            // 验证输入
             if (!province) {
                 showError('请选择省份');
                 return;
@@ -398,23 +399,18 @@
                 return;
             }
             
-            // 显示结果区域和加载状态
             resultArea.classList.remove('hidden');
             showLoading();
             
-            // 模拟加载延迟
             setTimeout(() => {
                 try {
-                    // 检查省份对应的sheet是否存在
                     if (!excelData[province]) {
                         showNoData(`未找到${province}的数据`);
                         return;
                     }
                     
-                    // 从省份数据中筛选出指定年份的数据
                     const provinceData = excelData[province];
                     const filteredData = provinceData.filter(item => {
-                        // 假设Excel中的年份列名为"年份"
                         return item.年份 == year;
                     });
                     
@@ -423,11 +419,9 @@
                         return;
                     }
                     
-                    // 更新结果标题
                     resultTitle.textContent = `${province}${year}年本科招生分数线`;
                     resultSubtitle.textContent = `数据来源：上海第二工业大学招生办公室`;
                     
-                    // 显示表格数据
                     displayTableData(filteredData);
                     
                 } catch (error) {
@@ -437,37 +431,31 @@
             }, 600);
         }
         
-        // 显示表格数据
+        // 显示表格数据 - 应用方正兰亭粗黑字体到表头
         function displayTableData(data) {
-            // 隐藏其他状态，显示表格
             loadingIndicator.classList.add('hidden');
             errorMessage.classList.add('hidden');
             noDataMessage.classList.add('hidden');
             dataTableContainer.classList.remove('hidden');
             
-            // 清空表格
             tableHeader.innerHTML = '';
             tableBody.innerHTML = '';
             
-            // 如果没有数据，显示无数据提示
             if (data.length === 0) {
                 showNoData();
                 return;
             }
             
-            // 获取表头（使用第一条数据的键）
             const headers = Object.keys(data[0]);
             
-            // 创建表头 - 增大字号
+            // 表头应用方正兰亭粗黑字体
             headers.forEach(header => {
                 const th = document.createElement('th');
                 th.textContent = header;
-                // 将text-xs改为text-base增大字号，调整py-3为py-2使表头高度更协调
-                th.className = 'px-6 py-2 text-left text-base font-medium text-gray-700 uppercase tracking-wider';
+                th.className = 'px-6 py-2.5 text-left text-base font-medium text-gray-700 uppercase tracking-wider font-fzlanting';
                 tableHeader.appendChild(th);
             });
             
-            // 创建表格内容 - 减小行高
             data.forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.className = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
@@ -476,7 +464,6 @@
                 headers.forEach(header => {
                     const td = document.createElement('td');
                     td.textContent = item[header] !== undefined ? item[header] : '';
-                    // 将py-4改为py-2减小行高
                     td.className = 'px-6 py-2 whitespace-nowrap text-sm text-gray-700';
                     tr.appendChild(td);
                 });
@@ -513,18 +500,12 @@
         
         // 事件监听器
         function setupEventListeners() {
-            // 初始化省份选择器
             initProvinceSelect();
-            
-            // 表单提交事件
             queryForm.addEventListener('submit', handleFormSubmit);
-            
-            // 重试按钮事件
             retryButton.addEventListener('click', () => {
                 errorMessage.classList.add('hidden');
             });
             
-            // 滚动时导航栏样式变化
             window.addEventListener('scroll', () => {
                 const header = document.querySelector('header');
                 if (window.scrollY > 10) {
@@ -537,10 +518,9 @@
             });
         }
         
-        // 页面加载完成后初始化并加载Excel文件
+        // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', () => {
             setupEventListeners();
-            // 自动加载Excel文件
             loadExcelFile();
         });
     </script>
