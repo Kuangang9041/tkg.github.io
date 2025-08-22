@@ -26,7 +26,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -48,6 +48,13 @@
             font-size: 24px;
             margin-left: 10px;
         }
+
+      .top {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 0 0px;
+       }
+
         
         /* 标题样式 */
         .page-title {
@@ -179,7 +186,7 @@
         
         td {
             font-size: 14px;
-            padding: 8px 15px; /* 行高较小 */
+            padding: 4px 15px; /* 行高较小 */
         }
         
         /* 状态提示样式 */
@@ -264,7 +271,6 @@
         </div>
     </header>
 
-    <div class="container">
         <!-- 页面标题 -->
         <div class="page-title">
             <h2>历年本科招生分数线查询</h2>
@@ -276,7 +282,8 @@
             <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
             <span>正在加载数据，请稍候...</span>
         </div>
-        
+
+   <div class="top">  
         <!-- 查询区域 -->
         <div class="query-section" id="queryArea" style="display: none;">
             <h3><i class="fa fa-search" aria-hidden="true"></i> 查询条件</h3>
@@ -303,12 +310,15 @@
                         </select>
                     </div>
                 </div>
+             </div>
+
                 
                 <button type="submit">查询分数线</button>
             </form>
-        </div>
+        </div><!--top结束-->
         
         <!-- 结果展示区域 -->
+    <div class="container">
         <div class="result-section" id="resultArea">
             <!-- 结果标题 -->
             <div class="result-header">
