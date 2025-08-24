@@ -61,7 +61,7 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-8 width-95vw">
         <!-- 页面标题 -->
         <div class="text-center mb-10">
             <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-3">招生数据查询</h2>
@@ -343,7 +343,7 @@
                 
                 row.forEach(cellValue => {
                     const td = document.createElement('td');
-                    td.className = 'px-2 py-1.5 whitespace-nowrap text-sm text-gray-700';
+                    td.className = 'px-2 py-1 whitespace-nowrap text-sm text-gray-700';
                     td.textContent = cellValue; // 直接显示值，空值自然为空白
                     tr.appendChild(td);
                 });
