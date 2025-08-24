@@ -43,6 +43,17 @@
                 transition: all 0.3s ease;
             }
         }
+        /* 表格滚动容器：强制水平滚动 + 优化手机体验 */
+        .table-scroll-container {
+            @apply overflow-x-auto; /* Tailwind指令 */
+            -webkit-overflow-scrolling: touch; /* 解决iOS滚动卡顿 */
+        }
+
+        /* 让表格自然展开（触发滚动的关键） */
+        .data-table {
+            @apply min-w-full; /* 表格最小宽度占满容器，超出则滚动 */
+            table-layout: auto; /* 列宽根据内容自适应 */
+        }
     </style>
     
   
