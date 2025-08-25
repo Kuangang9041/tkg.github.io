@@ -320,54 +320,70 @@
             }, 600);
         }
         
-        // 显示表格数据 - 空白单元格不显示标识
-        function displayTableData(data) {
-            // 隐藏其他状态，显示表格
-            loadingState.classList.add('hidden');
-            errorState.classList.add('hidden');
-            noDataState.classList.add('hidden');
-            dataTableContainer.classList.remove('hidden');
+      // 显示表格数据 - 空白单元格不显示标识 + 数字单元格右对齐
+function displayTableData(data) {
+    // 隐藏其他状态，显示表格
+    loadingState.classList.add('hidden');
+    errorState.classList.add('hidden');
+    noDataState.classList.add('hidden');
+    dataTableContainer.classList.remove('hidden');
+    
+    // 清空表格
+    tableHeader.innerHTML = '';
+    tableBody.innerHTML = '';
+    
+    // 如果没有数据，显示无数据提示
+    if (data.rows.length === 0) {
+        showNoData();
+        return;
+    }
+    
+    // 创建表头（表头保持左对齐，与原样式一致）
+    data.headers.forEach(header => {
+        const th = document.createElement('th');
+        th.className = 'px-2 py-1.5 text-left text-sm font-bold text-gray-700 uppercase tracking-wider';
+        th.textContent = header; // 空白表头直接显示空
+        tableHeader.appendChild(th);
+    });
+    
+    // 创建表格内容 - 核心修改：数字单元格右对齐
+    data.rows.forEach((row, rowIndex) => {
+        const tr = document.createElement('tr');
+        tr.className = rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+        tr.classList.add('hover:bg-gray-100', 'transition-custom');
+        
+        row.forEach(cellValue => {
+            const td = document.createElement('td');
+            // 基础样式（保留原有内边距、字体等）
+            let tdClasses = 'px-2 py-1 whitespace-nowrap text-sm text-gray-700';
             
-            // 清空表格
-            tableHeader.innerHTML = '';
-            tableBody.innerHTML = '';
+            // 关键判断：是否为数字（整数/小数，排除纯文本）
+            const isNumber = (typeof cellValue === 'number' || !isNaN(Number(cellValue))) && 
+                             cellValue !== '' && 
+                             typeof cellValue !== 'boolean';
             
-            // 如果没有数据，显示无数据提示
-            if (data.rows.length === 0) {
-                showNoData();
-                return;
+            // 数字单元格添加右对齐，非数字保持左对齐
+            if (isNumber) {
+                tdClasses += ' text-right'; // Tailwind 右对齐类
+            } else {
+                tdClasses += ' text-left'; // 非数字左对齐（与原样式一致）
             }
             
-            // 创建表头
-            data.headers.forEach(header => {
-                const th = document.createElement('th');
-                th.className = 'px-2 py-1.5 text-left text-sm font-bold text-gray-700 uppercase tracking-wider';
-                th.textContent = header; // 空白表头直接显示空
-                tableHeader.appendChild(th);
-            });
-            
-            // 创建表格内容 - 空白单元格不显示任何内容
-            data.rows.forEach((row, rowIndex) => {
-                const tr = document.createElement('tr');
-                tr.className = rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50';
-                tr.classList.add('hover:bg-gray-100', 'transition-custom');
-                
-                row.forEach(cellValue => {
-                    const td = document.createElement('td');
-                    td.className = 'px-2 py-1 whitespace-nowrap text-sm text-gray-700';
-                    td.textContent = cellValue; // 直接显示值，空值自然为空白
-                    tr.appendChild(td);
-                });
-                
-                tableBody.appendChild(tr);
-            });
-            
-            // 强制刷新表格布局
-            setTimeout(() => {
-                const container = document.querySelector('.table-scroll-container');
-                container.scrollLeft = 0;
-            }, 100);
-        }
+            // 应用样式并设置单元格内容
+            td.className = tdClasses;
+            td.textContent = cellValue; // 空值自然显示空白
+            tr.appendChild(td);
+        });
+        
+        tableBody.appendChild(tr);
+    });
+    
+    // 强制刷新表格布局（保持原有滚动优化）
+    setTimeout(() => {
+        const container = document.querySelector('.table-scroll-container');
+        container.scrollLeft = 0;
+    }, 100);
+}
         
         // 显示加载状态
         function showLoading() {
