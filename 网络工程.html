@@ -131,30 +131,48 @@
     </main>
 
     <!-- 页脚 -->
-    <footer class="bg-dark text-white mt-20">
-        <div class="container mx-auto px-4 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">关于我们</h3>
-                    <p class="text-gray-400">学校简介、办学特色、发展历程、校园风貌等</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">招生咨询</h3>
-                    <p class="text-gray-400">招生政策、报考指南、常见问题、联系方式</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">联系我们</h3>
-                    <p class="text-gray-400">地址：某某市某某区某某路XX号</p>
-                    <p class="text-gray-400">电话：0123-4567890</p>
-                    <p class="text-gray-400">邮箱：info@example.edu.cn</p>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
-                <p>&copy; 2023 某某大学 版权所有</p>
-            </div>
+<footer class="bg-school text-white mt-20">
+  <div class="container mx-auto px-4 py-8 md:py-12">
+    <!-- 三列布局：友情链接 + 地址 + 二维码 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- 友情链接 -->
+      <div>
+        <p class="font-bold text-lg mb-2">友情链接</p>
+        <ul>
+          <li class="text-gray-300 mb-1"><a href="https://gaokao.chsi.com.cn/">教育部阳光高考平台</a></li>
+          <li class="text-gray-300 mb-1"><a href="https://www.shmeea.edu.cn/">上海市教育考试院</a></li>
+          <li class="text-gray-300 mb-1"><a href="https://edu.sh.gov.cn//">上海市教委</a></li>
+          <li class="text-gray-300"><a href="index.html">校园网首页</a></li>
+        </ul>
+      </div>
+      
+      <!-- 地址信息 -->
+      <div class="flex flex-col justify-center">
+        <p class="text-gray-300 mb-1">地址：上海市浦东新区金海路2360号</p>
+        <p class="text-gray-300">邮编：201209</p>
+      </div>
+      
+      <!-- 二维码 + 说明 - 已调整大小和位置 -->
+      <div class="flex flex-col items-end">
+        <div class="flex space-x-4 mb-2">
+          <img src="images/微信公众号.jpg" alt="微信公众号" class="w-20 h-20">
+          <img src="images/招办视频号.jpg" alt="招办视频号" class="w-20 h-20">
+          <img src="images/招办小程序.jpg" alt="招办小程序" class="w-20 h-20">
         </div>
-    </footer>
-
+        <div class="flex space-x-7 text-sm text-gray-300">
+          <span>微信公众号</span>
+          <span>招办视频号</span>
+          <span>招办小程序</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 版权栏 -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+      <p>版权所有© 上海第二工业大学 沪ICP备19020926</p>
+    </div>
+  </div>
+</footer>
     <!-- 回到顶部按钮 -->
     <button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
         <i class="fa fa-arrow-up"></i>
@@ -181,17 +199,6 @@
             });
         });
 
-        // 为所有链接添加点击事件
-        document.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    alert(`即将跳转到: ${href}`);
-                    // 实际应用中使用: window.location.href = href;
-                }
-            });
-        });
 
         // 为"查看更多学院"按钮添加点击事件
         document.querySelector('button:not(#backToTop)').addEventListener('click', () => {
