@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学院专业介绍</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#722ED1',
+                        neutral: '#F5F7FA',
+                        dark: '#1D2129',
+                        school: '#003366' // 学校主色调-深蓝色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            }
+            .banner-height {
+                height: 100px;
+            }
+            .logo-container {
+                max-height: 80px;
+            }
+            .校训-container {
+                max-height: 80px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-dark">
+    <!-- 顶部横幅区域 -->
+    <div class="bg-school text-white">
+        <!-- 主横幅 -->
+        <div class="banner-height flex items-center justify-between px-6 md:px-12">
+            <!-- 左上角校徽和校名 -->
+            <div class="flex items-center space-x-4">
+                <img src="images/二工大校名校徽6.png" 
+                     alt="上海第二工业大学校徽" 
+                     class="logo-container">
+                <div>
+                    <div class="text-xl md:text-3xl font-bold">招生网</div>
+                </div>
+            </div>
+            
+            <!-- 中间校训 - 仅在桌面显示 -->
+            <div class="hidden md:block">
+                <img src="images/校训.png" 
+                     alt="校训：厚生厚德厚技" 
+                     class="校训-container mx-auto">
+            </div>
+            
+            <!-- 右上角搜索图标 -->
+            <div class="flex items-center">
+                <button class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                    <img src="images/搜索.png" 
+                         alt="搜索" 
+                         class="w-6 h-6">
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端校训显示 -->
+        <div class="md:hidden py-3 px-6">
+            <img src="images/校训.png" 
+                 alt="校训：厚生厚德厚技" 
+                 class="校训-container mx-auto">
+        </div>
+    </div>
+
+    <!-- 页面标题区域 - 已移除sticky定位，现在会随页面滚动 -->
+    <header class="bg-white shadow-sm py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-[clamp(1.8rem,4vw,2rem)] font-bold text-primary text-center">专业介绍</h1>
+            <p class="text-gray-600 text-center mt-2 max-w-3xl mx-auto">探索我校各学院的特色专业，了解培养方向与发展前景</p>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- 智能制造与控制工程学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/7.jpg" alt="智能制造与控制工程学院教学楼" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">智能制造与控制工程学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                智能制造工程技术
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                智能制造工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                材料成型及控制工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                自动化
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                机械电子工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                船舶与海洋工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                机械工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                工业工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                测控技术与仪器
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 计算机与信息工程学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/8.jpg" alt="计算机与信息工程学院教学楼" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">计算机与信息工程学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                数据科学与大数据技术
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                计算机科学与技术(卓越工程师)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                电子信息工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                智能科学与技术
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                软件工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="网络工程.html" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                网络工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                通信工程
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 资源与环境工程学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/9.jpg" alt="资源与环境工程学院实验室场景" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">资源与环境工程学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                应用化学
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                环境工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                环保设备工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                资源循环科学与工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                水文与水资源工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                地质工程
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+      <!-- 能源与材料学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/10.jpg" alt="能源与材料学院教学楼" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">能源与材料学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                储能科学与工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                复合材料成型工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                新能源科学与工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                材料化学
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                材料科学与工程
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 经济与管理学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/11.jpg" alt="经济与管理学院教学楼" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">经济与管理学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                标准化工程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                税收学
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                财务管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                电子商务
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                国际商务
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                               会展经济与管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                物流管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                信用管理
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 外语与文化传播学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/12.jpg" alt="外语与文化传播学院场景" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">外语与文化传播学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                公共关系学
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                日语
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                英语
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 数理与统计学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/13.jpg" alt="数理与统计学院场景" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">数理与统计学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                应用物理系学
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                信息与计算科学
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                应用统计学
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 国际教育学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/14.jpg" alt="国际教育学院场景" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">国际教育学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                汉语国际教育
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+      <!-- 艺术与设计学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/15.jpg" alt="艺术与设计学院教学楼" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">艺术与设计学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                视觉传达设计
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                产品设计
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                环境设计                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                数字媒体艺术
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                工业设计
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 高等职业技术（国际）学院 -->
+            <div class="bg-white rounded-xl overflow-hidden card-shadow hover-lift">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="images/16.jpg" alt="高等职业技术（国际）学院" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+                        <h2 class="text-white text-xl md:text-xl font-regular p-6 text-shadow">高等职业技术（国际）学院</h2>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                酒店管理与数字化运营
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                电气自动化技术                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                模具设计与制造
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                机电一体化技术                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                应用韩语
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                人物形象设计
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                眼视光技术                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                计算机应用技术
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                数控技术
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-700 hover:text-primary transition-colors flex items-center group">
+                                <i class="fa fa-angle-right mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                计算机网络技术
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white mt-20">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">关于我们</h3>
+                    <p class="text-gray-400">学校简介、办学特色、发展历程、校园风貌等</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">招生咨询</h3>
+                    <p class="text-gray-400">招生政策、报考指南、常见问题、联系方式</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">联系我们</h3>
+                    <p class="text-gray-400">地址：某某市某某区某某路XX号</p>
+                    <p class="text-gray-400">电话：0123-4567890</p>
+                    <p class="text-gray-400">邮箱：info@example.edu.cn</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 某某大学 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 回到顶部功能
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+             // 为"查看更多学院"按钮添加点击事件
+        document.querySelector('button:not(#backToTop)').addEventListener('click', () => {
+            alert('正在加载更多学院信息...');
+        });
+
+        // 搜索按钮点击事件
+        document.querySelector('.bg-school button').addEventListener('click', () => {
+            alert('搜索功能即将打开');
+        });
+    </script>
+</body>
+</html>
+    

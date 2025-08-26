@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学院专业介绍</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#722ED1',
+                        neutral: '#F5F7FA',
+                        dark: '#1D2129',
+                        school: '#003366' // 学校主色调-深蓝色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            }
+            .banner-height {
+                height: 100px;
+            }
+            .logo-container {
+                max-height: 80px;
+            }
+            .校训-container {
+                max-height: 80px;
+            }
+        /* 添加首行缩进工具类 */
+        .text-indent-2 {
+            text-indent: 2em;
+        }
+        /* 段落间距工具类 */
+        .paragraph-spacing {
+            margin-bottom: 1.5rem;
+        }
+}
+    </style>
+</head>
+<body class="font-sans text-dark">
+    <!-- 顶部横幅区域 -->
+    <div class="bg-school text-white">
+        <!-- 主横幅 -->
+        <div class="banner-height flex items-center justify-between px-6 md:px-12">
+            <!-- 左上角校徽和校名 -->
+            <div class="flex items-center space-x-4">
+                <img src="images/二工大校名校徽6.png" 
+                     alt="上海第二工业大学校徽" 
+                     class="logo-container">
+                <div>
+                    <div class="text-xl md:text-3xl font-bold">招生网</div>
+                </div>
+            </div>
+            
+            <!-- 中间校训 - 仅在桌面显示 -->
+            <div class="hidden md:block">
+                <img src="images/校训.png" 
+                     alt="校训：厚生厚德厚技" 
+                     class="校训-container mx-auto">
+            </div>
+            
+            <!-- 右上角搜索图标 -->
+            <div class="flex items-center">
+                <button class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                    <img src="images/搜索.png" 
+                         alt="搜索" 
+                         class="w-6 h-6">
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端校训显示 -->
+        <div class="md:hidden py-3 px-6">
+            <img src="images/校训.png" 
+                 alt="校训：厚生厚德厚技" 
+                 class="校训-container mx-auto">
+        </div>
+    </div>
+
+    <!-- 页面标题区域 - 已移除sticky定位，现在会随页面滚动 -->
+    <header class="bg-white shadow-sm py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-[clamp(1.8rem,4vw,2rem)] font-bold text-primary text-center">网络工程</h1>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-12">
+   
+<p class="text-indent-2 paragraph-spacing"> <span style="font-family: '方正兰亭粗黑_GBK';">培养目标：</span>培养具有良好科学素养，系统掌握计算机网络领域的原理、技术、平台和工具，能运用网络工程方法分析与解决网络问题，从事规划、设计、组建、开发、管理和维护稳定、可靠、安全的网络系统高级技术应用型人才。</p>
+
+<p class="text-indent-2 paragraph-spacing"> <span style="font-family: '方正兰亭粗黑_GBK';">核心课程：</span>含程序设计基础、数据结构与算法、计算机组成原理、计算机网络、互联网协议与系统、路由与交换技术、网络安全、计算机网络课程实习、路由与交换技术课程实习、网络系统综合集成设计等。</p>
+
+<p class="text-indent-2 paragraph-spacing"> <span style="font-family: '方正兰亭粗黑_GBK';">就业领域：</span>在网络工程相关领域从事网络规划与架构设计、网络组网与系统集成、网络软件开发、网络软件测试、网络安全设计、网络管理、网络服务咨询等工作。</p>
+
+        </div>
+
+      
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white mt-20">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">关于我们</h3>
+                    <p class="text-gray-400">学校简介、办学特色、发展历程、校园风貌等</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">招生咨询</h3>
+                    <p class="text-gray-400">招生政策、报考指南、常见问题、联系方式</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">联系我们</h3>
+                    <p class="text-gray-400">地址：某某市某某区某某路XX号</p>
+                    <p class="text-gray-400">电话：0123-4567890</p>
+                    <p class="text-gray-400">邮箱：info@example.edu.cn</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 某某大学 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 回到顶部功能
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 为所有链接添加点击事件
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    alert(`即将跳转到: ${href}`);
+                    // 实际应用中使用: window.location.href = href;
+                }
+            });
+        });
+
+        // 为"查看更多学院"按钮添加点击事件
+        document.querySelector('button:not(#backToTop)').addEventListener('click', () => {
+            alert('正在加载更多学院信息...');
+        });
+
+        // 搜索按钮点击事件
+        document.querySelector('.bg-school button').addEventListener('click', () => {
+            alert('搜索功能即将打开');
+        });
+    </script>
+</body>
+</html>
+    
