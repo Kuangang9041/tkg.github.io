@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新生报到</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#722ED1',
+                        neutral: '#F5F7FA',
+                        dark: '#1D2129',
+                        school: '#003366' // 学校主色调-深蓝色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            }
+            .banner-height {
+                height: 100px;
+            }
+            .logo-container {
+                max-height: 80px;
+            }
+            .校训-container {
+                max-height: 80px;
+            }
+        /* 添加首行缩进工具类 */
+        .text-indent-2 {
+            text-indent: 2em;
+        }
+        /* 段落间距工具类 */
+        .paragraph-spacing {
+            margin-bottom: 1.5rem;
+        }
+}
+    </style>
+</head>
+<body class="font-sans text-dark">
+    <!-- 顶部横幅区域 -->
+    <div class="bg-school text-white">
+        <!-- 主横幅 -->
+        <div class="banner-height flex items-center justify-between px-6 md:px-12">
+            <!-- 左上角校徽和校名 -->
+            <div class="flex items-center space-x-4">
+                <img src="images/二工大校名校徽6.png" 
+                     alt="上海第二工业大学校徽" 
+                     class="logo-container">
+                <div>
+                    <div class="text-xl md:text-3xl font-bold">招生网</div>
+                </div>
+            </div>
+            
+            <!-- 中间校训 - 仅在桌面显示 -->
+            <div class="hidden md:block">
+                <img src="images/校训.png" 
+                     alt="校训：厚生厚德厚技" 
+                     class="校训-container mx-auto">
+            </div>
+            
+            <!-- 右上角搜索图标 -->
+            <div class="flex items-center">
+                <button class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                    <img src="images/搜索.png" 
+                         alt="搜索" 
+                         class="w-6 h-6">
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端校训显示 -->
+        <div class="md:hidden py-3 px-6">
+            <img src="images/校训.png" 
+                 alt="校训：厚生厚德厚技" 
+                 class="校训-container mx-auto">
+        </div>
+    </div>
+
+    <!-- 页面标题区域 - 已移除sticky定位，现在会随页面滚动 -->
+    <header class="bg-white shadow-sm py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-[clamp(1.8rem,4vw,2rem)] font-bold text-primary text-center">新生开学安排</h1>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-0">
+   
+<p class="text-indent-2 paragraph-spacing text-lg"> 2025级新生（含专科、本科、硕士研究生）2025年9月6日（星期六）报到；2025级专升本、高本贯通、预科班新生9月20日（星期六）报到；本专科新生(不含专升本、高本贯通、预科班新生)9月8日(星期一)起军训。</p>
+<p>地址：上海市浦东新区金海路2360号</p>
+<p>邮编：201209</p>
+<p>联系电话：021-50217411、50214975（8:30-11:00  13:00-15:30 周末及节假日除外）</p>
+<p>附近公交：地铁9号线、地铁12号线、630、790、991、曹路1路、浦东27路</p>
+
+
+
+
+        </div>
+
+      
+    </main>
+
+    <!-- 页脚 -->
+<footer class="bg-school text-white mt-20">
+  <div class="container mx-auto px-4 py-8 md:py-12">
+    <!-- 三列布局：友情链接 + 地址 + 二维码 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- 友情链接 -->
+      <div>
+        <p class="font-bold text-lg mb-2">友情链接</p>
+        <ul>
+          <li class="text-gray-300 mb-1"><a href="https://gaokao.chsi.com.cn/">教育部阳光高考平台</a></li>
+          <li class="text-gray-300 mb-1"><a href="https://www.shmeea.edu.cn/">上海市教育考试院</a></li>
+          <li class="text-gray-300 mb-1"><a href="https://edu.sh.gov.cn//">上海市教委</a></li>
+          <li class="text-gray-300"><a href="index.html">校园网首页</a></li>
+        </ul>
+      </div>
+      
+      <!-- 地址信息 -->
+      <div class="flex flex-col justify-center">
+        <p class="text-gray-300 mb-1">地址：上海市浦东新区金海路2360号</p>
+        <p class="text-gray-300">邮编：201209</p>
+      </div>
+      
+      <!-- 二维码 + 说明 - 已调整大小和位置 -->
+      <div class="flex flex-col items-end">
+        <div class="flex space-x-4 mb-2">
+          <img src="images/微信公众号.jpg" alt="微信公众号" class="w-20 h-20">
+          <img src="images/招办视频号.jpg" alt="招办视频号" class="w-20 h-20">
+          <img src="images/招办小程序.jpg" alt="招办小程序" class="w-20 h-20">
+        </div>
+        <div class="flex space-x-7 text-sm text-gray-300">
+          <span>微信公众号</span>
+          <span>招办视频号</span>
+          <span>招办小程序</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 版权栏 -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+      <p>版权所有© 上海第二工业大学 沪ICP备19020926</p>
+    </div>
+  </div>
+</footer>
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 回到顶部功能
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+
+        // 为"查看更多学院"按钮添加点击事件
+        document.querySelector('button:not(#backToTop)').addEventListener('click', () => {
+            alert('正在加载更多学院信息...');
+        });
+
+        // 搜索按钮点击事件
+        document.querySelector('.bg-school button').addEventListener('click', () => {
+            alert('搜索功能即将打开');
+        });
+    </script>
+</body>
+</html>
+    
