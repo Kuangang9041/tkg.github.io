@@ -79,7 +79,7 @@
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: -30px;
+            margin-bottom: 0px;
         }
         
         .query-section h3 {
@@ -509,34 +509,33 @@
             }, 500);
         }
         
-        // 显示表格数据
-        function displayTableData(data) {
-            // 隐藏其他状态，显示表格
-            loadingIndicator.style.display = 'none';
-            errorMessage.style.display = 'none';
-            noDataMessage.style.display = 'none';
-            dataTableContainer.style.display = 'block';
-            
-            // 清空表格
-            tableHeader.innerHTML = '';
-            tableBody.innerHTML = '';
-            
-            // 如果没有数据，显示无数据提示
-            if (data.length === 0) {
-                showNoData();
-                return;
-            }
-            
-            // 获取表头（使用第一条数据的键）
-            const headers = Object.keys(data[0]);
-            
-            // 创建表头
-            headers.forEach(header => {
-                const th = document.createElement('th');
-                th.textContent = header;
-                tableHeader.appendChild(th);
-            });
-            
+function displayTableData(data) {
+    // 隐藏其他状态，显示表格
+    loadingIndicator.style.display = 'none';
+    errorMessage.style.display = 'none';
+    noDataMessage.style.display = 'none';
+    dataTableContainer.style.display = 'block';
+
+    // 清空表格
+    tableHeader.innerHTML = '';
+    tableBody.innerHTML = '';
+
+    // 如果没有数据，显示无数据提示
+    if (data.length === 0) {
+        showNoData();
+        return;
+    }
+
+    // 获取表头（使用第一条数据的键，排除“年份”列）
+    const allHeaders = Object.keys(data[0]);
+    const headers = allHeaders.filter(header => header !== '年份'); // 关键修改：过滤掉“年份”字段
+
+    // 创建表头（仅渲染非“年份”字段）
+    headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        tableHeader.appendChild(th);
+    });            
             // 创建表格内容
             data.forEach((item, index) => {
                 const tr = document.createElement('tr');
