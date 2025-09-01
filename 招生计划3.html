@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招生数据查询系统</title>
+    <!-- 引入SheetJS用于处理Excel文件 -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js"></script>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        neutral: '#F5F7FA',
+                        dark: '#1D2129',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .transition-custom {
+                transition: all 0.3s ease;
+            }
+        }
+        /* 表格滚动容器：强制水平滚动 + 优化手机体验 */
+        .table-scroll-container {
+            @apply overflow-x-auto; /* Tailwind指令 */
+            -webkit-overflow-scrolling: touch; /* 解决iOS滚动卡顿 */
+        }
+
+        /* 让表格自然展开（触发滚动的关键） */
+        .data-table {
+            @apply min-w-full; /* 表格最小宽度占满容器，超出则滚动 */
+            table-layout: auto; /* 列宽根据内容自适应 */
+        }
+    </style>
+    
+  
+</head>
+<body class="bg-neutral min-h-screen">
+    <!-- 顶部导航 -->
+    <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa fa-database text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold">招生数据查询系统</h1>
+            </div>
+            <div class="hidden md:block">
+                <p class="text-sm opacity-90">数据来源: admission.xlsx</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- 页面标题 -->
+        <div class="text-center mb-10">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-3">招生数据查询</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">查询并查看2024年和2025年的招生数据，数据来源于admission.xlsx文件</p>
+        </div>
+        
+        <!-- 数据加载状态 -->
+        <div id="initialLoading" class="bg-white rounded-lg p-8 text-center card-shadow mb-8">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-4"></div>
+            <p class="text-gray-700">正在加载数据，请稍候...</p>
+        </div>
+        
+        <!-- 查询区域 -->
+        <div id="querySection" class="bg-white rounded-lg p-6 md:p-8 card-shadow mb-8 hidden">
+            <h3 class="text-xl font-semibold mb-6 text-dark flex items-center">
+                <i class="fa fa-search text-primary mr-2"></i>查询条件
+            </h3>
+            
+            <form id="queryForm" class="max-w-md mx-auto">
+                <div class="mb-6">
+                    <label for="year" class="block text-gray-700 font-medium mb-2">年份</label>
+                    <div class="relative">
+                        <select id="year" name="year" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-custom appearance-none">
+                            <option value="">请选择年份</option>
+                            <option value="2024">2024年</option>
+                            <option value="2025">2025年</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                            <i class="fa fa-chevron-down text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                    class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-custom flex items-center justify-center">
+                    <i class="fa fa-search mr-2"></i>查询数据
+                </button>
+            </form>
+        </div>
+        
+        <!-- 结果展示区域 -->
+        <div id="resultSection" class="bg-white rounded-lg card-shadow overflow-hidden hidden">
+            <!-- 结果标题 -->
+            <div class="bg-primary/10 p-6 border-b border-gray-100">
+                <h3 id="resultTitle" class="text-xl font-semibold text-dark"></h3>
+                <p id="resultSubtitle" class="text-gray-600 mt-1"></p>
+            </div>
+            
+            <!-- 加载状态 -->
+            <div id="loadingState" class="p-12 text-center hidden">
+                <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary mb-4"></div>
+                <p class="text-gray-600">正在查询数据，请稍候...</p>
+            </div>
+            
+            <!-- 错误状态 -->
+            <div id="errorState" class="p-12 text-center hidden">
+                <i class="fa fa-exclamation-triangle text-orange-500 text-4xl mb-4"></i>
+                <p id="errorMessage" class="text-gray-700 mb-6"></p>
+                <button id="retryButton" 
+                    class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-custom">
+                    重新尝试
+                </button>
+            </div>
+            
+            <!-- 无数据状态 -->
+            <div id="noDataState" class="p-12 text-center hidden">
+                <i class="fa fa-folder-open-o text-gray-400 text-4xl mb-4"></i>
+                <p class="text-gray-600">未找到符合条件的数据</p>
+            </div>
+            
+            <!-- 数据表格 -->
+            <div id="dataTableContainer" class="table-scroll-container hidden">
+                <table class="data-table divide-y divide-gray-200 text-sm">
+                    <thead class="bg-gray-50">
+                        <tr id="tableHeader"></tr>
+                    </thead>
+                    <tbody id="tableBody" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white mt-12 py-6">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>© 2025 招生数据查询系统 | 数据来源于admission.xlsx</p>
+        </div>
+    </footer>
+
+    <script>
+        // 全局变量存储Excel数据（包含完整列信息）
+        let excelData = {
+            "2024": {
+                headers: [],
+                rows: []
+            },
+            "2025": {
+                headers: [],
+                rows: []
+            }
+        };
+        
+        // DOM元素
+        const initialLoading = document.getElementById('initialLoading');
+        const querySection = document.getElementById('querySection');
+        const resultSection = document.getElementById('resultSection');
+        const queryForm = document.getElementById('queryForm');
+        const yearSelect = document.getElementById('year');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultSubtitle = document.getElementById('resultSubtitle');
+        const loadingState = document.getElementById('loadingState');
+        const errorState = document.getElementById('errorState');
+        const errorMessage = document.getElementById('errorMessage');
+        const noDataState = document.getElementById('noDataState');
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        const tableHeader = document.getElementById('tableHeader');
+        const tableBody = document.getElementById('tableBody');
+        const retryButton = document.getElementById('retryButton');
+        
+        // 加载Excel文件 - 包含空白列但不显示标识
+        function loadExcelFile() {
+            fetch('admission.xlsx')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`文件加载失败: ${response.statusText}`);
+                    }
+                    return response.arrayBuffer();
+                })
+                .then(data => {
+                    try {
+                        // 解析Excel文件
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        
+                        // 读取2024和2025两个sheet的数据
+                        const sheets = ["2024", "2025"];
+                        sheets.forEach(sheetName => {
+                            if (workbook.SheetNames.includes(sheetName)) {
+                                const worksheet = workbook.Sheets[sheetName];
+                                
+                                // 获取工作表的范围，确保包含所有列
+                                const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1:A1');
+                                
+                                // 提取表头（假设第一行为表头）
+                                const headers = [];
+                                for (let c = range.s.c; c <= range.e.c; c++) {
+                                    const cellAddress = XLSX.utils.encode_cell({ r: 0, c: c });
+                                    const cell = worksheet[cellAddress];
+                                    headers.push(cell ? cell.v : ''); // 空白表头保持为空
+                                }
+                                
+                                // 提取所有行数据，包括空白单元格
+                                const rows = [];
+                                // 从第二行开始读取数据（r=1）
+                                for (let r = 1; r <= range.e.r; r++) {
+                                    const rowData = [];
+                                    for (let c = range.s.c; c <= range.e.c; c++) {
+                                        const cellAddress = XLSX.utils.encode_cell({ r: r, c: c });
+                                        const cell = worksheet[cellAddress];
+                                        rowData.push(cell ? cell.v : ''); // 空白单元格用空字符串表示
+                                    }
+                                    rows.push(rowData);
+                                }
+                                
+                                // 存储包含完整列的数据
+                                excelData[sheetName] = {
+                                    headers: headers,
+                                    rows: rows
+                                };
+                                
+                                console.log(`${sheetName}年数据加载完成，共${rows.length}行，${headers.length}列`);
+                            } else {
+                                console.warn(`Excel文件中未找到${sheetName}工作表`);
+                            }
+                        });
+                        
+                        // 隐藏初始加载状态，显示查询区域
+                        initialLoading.classList.add('hidden');
+                        querySection.classList.remove('hidden');
+                        
+                    } catch (error) {
+                        console.error('解析Excel文件出错:', error);
+                        showInitialError(`解析文件时出错: ${error.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('加载Excel文件出错:', error);
+                    showInitialError(`加载数据失败: ${error.message}`);
+                });
+        }
+        
+        // 显示初始加载错误
+        function showInitialError(message) {
+            initialLoading.innerHTML = `
+                <div class="text-center">
+                    <i class="fa fa-exclamation-triangle text-orange-500 text-4xl mb-4"></i>
+                    <p class="text-red-600 mb-6">${message}</p>
+                    <button onclick="loadExcelFile()" 
+                        class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-custom">
+                        重新加载
+                    </button>
+                </div>
+            `;
+        }
+        
+        // 处理查询表单提交
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // 获取用户选择的年份
+            const year = yearSelect.value;
+            
+            // 验证输入
+            if (!year) {
+                showError('请选择年份');
+                return;
+            }
+            
+            // 显示结果区域和加载状态
+            resultSection.classList.remove('hidden');
+            showLoading();
+            
+            // 模拟加载延迟
+            setTimeout(() => {
+                try {
+                    // 获取对应年份的数据
+                    const yearData = excelData[year] || { headers: [], rows: [] };
+                    
+                    if (yearData.rows.length === 0) {
+                        showNoData();
+                        return;
+                    }
+                    
+                    // 更新结果标题
+                    resultTitle.textContent = `${year}年招生数据`;
+                    resultSubtitle.textContent = `共 ${yearData.rows.length} 条记录，${yearData.headers.length} 列数据`;
+                    
+                    // 显示表格数据
+                    displayTableData(yearData);
+                    
+                } catch (error) {
+                    console.error('查询过程出错:', error);
+                    showError(`查询过程中出现错误: ${error.message}`);
+                }
+            }, 600);
+        }
+        
+      // 显示表格数据 - 空白单元格不显示标识 + 数字单元格右对齐
+function displayTableData(data) {
+    // 隐藏其他状态，显示表格
+    loadingState.classList.add('hidden');
+    errorState.classList.add('hidden');
+    noDataState.classList.add('hidden');
+    dataTableContainer.classList.remove('hidden');
+    
+    // 清空表格
+    tableHeader.innerHTML = '';
+    tableBody.innerHTML = '';
+    
+    // 如果没有数据，显示无数据提示
+    if (data.rows.length === 0) {
+        showNoData();
+        return;
+    }
+    
+    // 创建表头（表头保持左对齐，与原样式一致）
+    data.headers.forEach(header => {
+        const th = document.createElement('th');
+        th.className = 'px-2 py-1.5 text-left text-sm font-bold text-gray-700 uppercase tracking-wider';
+        th.textContent = header; // 空白表头直接显示空
+        tableHeader.appendChild(th);
+    });
+    
+    // 创建表格内容 - 核心修改：数字单元格右对齐
+    data.rows.forEach((row, rowIndex) => {
+        const tr = document.createElement('tr');
+        tr.className = rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+        tr.classList.add('hover:bg-gray-100', 'transition-custom');
+        
+        row.forEach(cellValue => {
+            const td = document.createElement('td');
+            // 基础样式（保留原有内边距、字体等）
+            let tdClasses = 'px-2 py-1 whitespace-nowrap text-sm text-gray-700';
+            
+            // 关键判断：是否为数字（整数/小数，排除纯文本）
+            const isNumber = (typeof cellValue === 'number' || !isNaN(Number(cellValue))) && 
+                             cellValue !== '' && 
+                             typeof cellValue !== 'boolean';
+            
+            // 数字单元格添加右对齐，非数字保持左对齐
+            if (isNumber) {
+                tdClasses += ' text-right'; // Tailwind 右对齐类
+            } else {
+                tdClasses += ' text-left'; // 非数字左对齐（与原样式一致）
+            }
+            
+            // 应用样式并设置单元格内容
+            td.className = tdClasses;
+            td.textContent = cellValue; // 空值自然显示空白
+            tr.appendChild(td);
+        });
+        
+        tableBody.appendChild(tr);
+    });
+    
+    // 强制刷新表格布局（保持原有滚动优化）
+    setTimeout(() => {
+        const container = document.querySelector('.table-scroll-container');
+        container.scrollLeft = 0;
+    }, 100);
+}
+        
+        // 显示加载状态
+        function showLoading() {
+            loadingState.classList.remove('hidden');
+            errorState.classList.add('hidden');
+            dataTableContainer.classList.add('hidden');
+            noDataState.classList.add('hidden');
+        }
+        
+        // 显示错误信息
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorState.classList.remove('hidden');
+            loadingState.classList.add('hidden');
+            dataTableContainer.classList.add('hidden');
+            noDataState.classList.add('hidden');
+        }
+        
+        // 显示无数据提示
+        function showNoData() {
+            noDataState.classList.remove('hidden');
+            loadingState.classList.add('hidden');
+            errorState.classList.add('hidden');
+            dataTableContainer.classList.add('hidden');
+        }
+        
+        // 初始化事件监听
+        function initEventListeners() {
+            queryForm.addEventListener('submit', handleFormSubmit);
+            retryButton.addEventListener('click', () => {
+                handleFormSubmit({ preventDefault: () => {} });
+            });
+        }
+        
+        // 页面加载完成后初始化
+        window.onload = function() {
+            initEventListeners();
+            loadExcelFile();
+        }
+    </script>
+</body>
+</html>
