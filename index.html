@@ -14,12 +14,16 @@
             overflow-x: hidden; /* 防止横向滚动条 */
         }
 
-        .banner {
-            position: relative;
-            width: 100%; /* 宽度充满父容器 */
-            aspect-ratio: 1920 / 940; /* 固定宽高比（关键） */
-            overflow: hidden;
-        }
+.banner {
+    position: fixed; /* 改为固定定位 */
+    left: 50%; /* 水平居中 */
+    transform: translateX(-50%); /* 水平居中补偿 */
+    width: 100%; 
+    max-width: 1920px; /* 限制最大宽度为1920px */
+    aspect-ratio: 1920 / 940; 
+    overflow: hidden;
+}
+
         /* 轮播图样式 */
         .banner-slideshow {
             width: 100%;
@@ -223,6 +227,11 @@
                 <div class="item"><img src="images/建军节.jpg" alt="建军节"></div>
                 <div class="item"><img src="images/大暑.jpg" alt="大暑"></div>
                 <div class="item"><img src="images/处暑.jpg" alt="处暑"></div>
+                <div class="item"><img src="images/校园初秋.jpg" alt="校园初秋"></div>
+                <div class="item"><img src="images/校风.jpg" alt="校风"></div>
+                <div class="item"><img src="images/新起点.jpg" alt="新起点"></div>
+
+
             </div>
             
             <!-- 轮播图指示器（小圆点）容器 -->
