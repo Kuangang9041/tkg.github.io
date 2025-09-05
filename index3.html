@@ -14,12 +14,16 @@
             overflow-x: hidden; /* 防止横向滚动条 */
         }
 
-  .banner {
-            position: relative;
-            width: 100%; /* 宽度充满父容器 */
-            aspect-ratio: 1920 / 940; /* 固定宽高比（关键） */
-            overflow: hidden;
-        }
+.banner {
+    position: fixed; /* 改为固定定位 */
+    left: 50%; /* 水平居中 */
+    transform: translateX(-50%); /* 水平居中补偿 */
+    width: 100%; 
+    max-width: 1920px; /* 限制最大宽度为1920px */
+    aspect-ratio: 1920 / 940; 
+    overflow: hidden;
+}
+
         /* 轮播图样式 */
         .banner-slideshow {
             width: 100%;
@@ -49,6 +53,30 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
+        }
+
+        /* 轮播图指示器（小圆点） */
+        .slideshow-indicators {
+            position: absolute;
+            bottom: 120px; /* 位于轮播图底部，菜单上方 */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px; /* 圆点之间的间距 */
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 12px; /* 圆点宽度 */
+            height: 12px; /* 圆点高度 */
+            border-radius: 50%; /* 圆形 */
+            background-color: rgba(255, 255, 255, 0.5); /* 半透明白色 */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .indicator.active {
+            background-color: #fff; /* 选中状态为纯白色 */
         }
 
         /* 校名校徽（左上角） */
@@ -199,7 +227,15 @@
                 <div class="item"><img src="images/建军节.jpg" alt="建军节"></div>
                 <div class="item"><img src="images/大暑.jpg" alt="大暑"></div>
                 <div class="item"><img src="images/处暑.jpg" alt="处暑"></div>
+                <div class="item"><img src="images/校园初秋.jpg" alt="校园初秋"></div>
+                <div class="item"><img src="images/校风.jpg" alt="校风"></div>
+                <div class="item"><img src="images/新起点.jpg" alt="新起点"></div>
+
+
             </div>
+            
+            <!-- 轮播图指示器（小圆点）容器 -->
+            <div class="slideshow-indicators" id="indicators"></div>
         </div>
 
         <!-- 校名校徽 -->
@@ -329,8 +365,30 @@
         // 轮播图逻辑
         document.addEventListener('DOMContentLoaded', function() {
             const items = document.querySelectorAll('.item');
+            const indicatorsContainer = document.getElementById('indicators');
             let currentIndex = 0;
+            let interval; // 用于存储定时器
             
+            // 创建指示器圆点
+            items.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (index === 0) {
+                    indicator.classList.add('active'); // 第一个圆点默认激活
+                }
+                
+                // 点击圆点切换图片
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetInterval(); // 重置定时器
+                });
+                
+                indicatorsContainer.appendChild(indicator);
+            });
+            
+            const indicators = document.querySelectorAll('.indicator');
+            
+            // 初始显示第一张图片
             const firstImage = items[0].querySelector('img');
             if (firstImage.complete) {
                 items[0].classList.add('active');
@@ -338,13 +396,31 @@
                 firstImage.addEventListener('load', () => items[0].classList.add('active'));
             }
             
-            function showNextImage() {
+            // 切换到指定幻灯片
+            function goToSlide(index) {
                 items[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % items.length;
+                indicators[currentIndex].classList.remove('active');
+                
+                currentIndex = index;
+                
                 items[currentIndex].classList.add('active');
+                indicators[currentIndex].classList.add('active');
             }
             
-            setInterval(showNextImage, 5000);
+            // 显示下一张图片
+            function showNextImage() {
+                const nextIndex = (currentIndex + 1) % items.length;
+                goToSlide(nextIndex);
+            }
+            
+            // 重置定时器
+            function resetInterval() {
+                clearInterval(interval);
+                interval = setInterval(showNextImage, 5000);
+            }
+            
+            // 启动自动轮播
+            interval = setInterval(showNextImage, 5000);
         });
 
         // 搜索框逻辑
