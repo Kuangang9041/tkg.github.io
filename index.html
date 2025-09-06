@@ -51,9 +51,16 @@
     height: 100%;
     object-position: center;
     /* 默认横屏状态：充满屏幕 */
-    object-fit: cover;
+    object-fit: fill;
 }
 
+/* 竖屏状态下的图片样式 */
+.vertical .item img {
+    /* 保持1920/940的比例 */
+    object-fit: contain;
+    object-position: top;
+    background-color: #000; /* 黑色背景填充空白区域 */
+}
 
         /* 轮播图指示器（小圆点） */
         .slideshow-indicators {
@@ -78,13 +85,6 @@
         .indicator.active {
             background-color: #fff; /* 选中状态为纯白色 */
         }
-/* 竖屏状态下的图片样式 */
-.vertical .item img {
-    /* 保持1920/940的比例 */
-    object-fit: contain;
-    object-position: top;
-    background-color: #000; /* 黑色背景填充空白区域 */
-}
 
         /* 校名校徽（左上角） */
         .banner-logo {
