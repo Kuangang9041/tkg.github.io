@@ -15,13 +15,15 @@
         }
 
 .banner {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw; /* 宽度等于屏幕宽度 */
-    height: 100vh; /* 高度等于屏幕高度 */
+    position: relative; /* 改为固定定位 */
+    left: 50%; /* 水平居中 */
+    transform: translateX(-50%); /* 水平居中补偿 */
+    width: 100%; 
+    max-width: 1920px; /* 限制最大宽度为1920px */
+    aspect-ratio: 1920 / 940; 
     overflow: hidden;
 }
+
         /* 轮播图样式 */
         .banner-slideshow {
             width: 100%;
@@ -46,20 +48,12 @@
             opacity: 1;
             z-index: 1;
         }
-.item img {
-    width: 100%;
-    height: 100%;
-    object-position: center;
-    /* 默认横屏状态：充满屏幕 */
-    object-fit: cover;
-}
-
-/* 竖屏状态下的图片样式 */
-.vertical .item img {
-    /* 保持1920/940的比例 */
-    object-fit: contain;
-    background-color: #000; /* 黑色背景填充空白区域 */
-}
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
 
         /* 轮播图指示器（小圆点） */
         .slideshow-indicators {
@@ -225,7 +219,7 @@
     </style>
 </head>
 <body>
-    <div class="banner" id="banner">
+    <div class="banner">
         <!-- 轮播图 -->
         <div class="banner-slideshow">
             <div class="slideshow-items">
@@ -236,6 +230,8 @@
                 <div class="item"><img src="images/校园初秋.jpg" alt="校园初秋"></div>
                 <div class="item"><img src="images/校风.jpg" alt="校风"></div>
                 <div class="item"><img src="images/新起点.jpg" alt="新起点"></div>
+
+
             </div>
             
             <!-- 轮播图指示器（小圆点）容器 -->
@@ -425,25 +421,6 @@
             
             // 启动自动轮播
             interval = setInterval(showNextImage, 5000);
-
-            // 屏幕方向检测逻辑
-            const banner = document.getElementById('banner');
-            
-            // 检查屏幕方向并设置样式
-            function checkOrientation() {
-                // 横屏: 宽度 > 高度; 竖屏: 高度 > 宽度
-                if (window.innerHeight > window.innerWidth) {
-                    banner.classList.add('vertical');
-                } else {
-                    banner.classList.remove('vertical');
-                }
-            }
-            
-            // 初始检查
-            checkOrientation();
-            
-            // 监听窗口大小变化（包括旋转屏幕）
-            window.addEventListener('resize', checkOrientation);
         });
 
         // 搜索框逻辑
