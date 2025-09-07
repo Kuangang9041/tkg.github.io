@@ -224,6 +224,22 @@
         .sub-menu li:hover {
             background-color: #f0f0f0;
         }
+        /* 竖屏适配调整 */
+        .vertical .slideshow-indicators {
+            bottom: 100px; /* 竖屏时上移指示器，避免被菜单遮挡 */
+        }
+        
+        .vertical .banner-nav {
+            flex-wrap: nowrap; /* 防止菜单项换行 */
+            overflow-x: auto; /* 允许横向滚动 */
+            -webkit-overflow-scrolling: touch; /* 平滑滚动 */
+        }
+        
+        .vertical .banner-nav > li > a {
+            font-size: 12px; /* 缩小竖屏时菜单文字 */
+            padding: 4px 2px;
+        }
+
     </style>
 </head>
 <body>
