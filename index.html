@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>二工大首页</title>
     <style>
         body {
@@ -14,14 +13,15 @@
             padding: 0;
             overflow-x: hidden; /* 防止横向滚动条 */
         }
-        .banner {
-            position: relative;
-            left: 0;
-            top: 0;
-            width: 100vw; /* 宽度等于屏幕宽度 */
-            height: 100vh; /* 高度等于屏幕高度 */
-            overflow: hidden;
-        }
+
+.banner {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100vw; /* 宽度等于屏幕宽度 */
+    height: 100vh; /* 高度等于屏幕高度 */
+    overflow: hidden;
+}
         /* 轮播图样式 */
         .banner-slideshow {
             width: 100%;
@@ -32,6 +32,7 @@
             width: 100%;
             height: 100%;
         }
+
         .item {
             position: absolute;
             top: 0;
@@ -45,20 +46,22 @@
             opacity: 1;
             z-index: 1;
         }
-        .item img {
-            width: 100%;
-            height: 100%;
-            object-position: center;
-            /* 默认横屏状态：充满屏幕 */
-            object-fit: fill;
-        }
-        /* 竖屏状态下的图片样式 */
-        .vertical .item img {
-            /* 保持1920/940的比例 */
-            object-fit: contain;
-            object-position: top;
-            background-color: #000; /* 黑色背景填充空白区域 */
-        }
+.item img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    /* 默认横屏状态：充满屏幕 */
+    object-fit: fill;
+}
+
+/* 竖屏状态下的图片样式 */
+.vertical .item img {
+    /* 保持1920/940的比例 */
+    object-fit: contain;
+    object-position: top;
+    background-color: #000; /* 黑色背景填充空白区域 */
+}
+
         /* 轮播图指示器（小圆点） */
         .slideshow-indicators {
             position: absolute;
@@ -69,6 +72,7 @@
             gap: 10px; /* 圆点之间的间距 */
             z-index: 10;
         }
+        
         .indicator {
             width: 12px; /* 圆点宽度 */
             height: 12px; /* 圆点高度 */
@@ -77,9 +81,11 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+        
         .indicator.active {
             background-color: #fff; /* 选中状态为纯白色 */
         }
+
         /* 校名校徽（左上角） */
         .banner-logo {
             position: absolute;
@@ -90,6 +96,7 @@
         .banner-logo img {
             height: clamp(70px, 8vh, 100px);
         }
+
         /* 校训（顶部中间） */
         .banner-motto {
             position: absolute;
@@ -101,6 +108,7 @@
         .banner-motto img {
             height: clamp(100px, 10vh, 120px);
         }
+
         /* 搜索功能（右上角） */
         .banner-search {
             position: absolute;
@@ -138,6 +146,7 @@
             margin-left: 5px;
             cursor: pointer;
         }
+
         /* 主菜单容器：固定在轮播图底部 */
         .banner-header {
             position: absolute;
@@ -145,6 +154,7 @@
             width: 100%; /* 横向充满 */
             z-index: 10;
         }
+
         /* 主菜单：横向排列 */
         .banner-nav {
             display: flex; /* 启用flex横向排列 */
@@ -156,13 +166,13 @@
             padding: 60px 10px; /* 上下内边距，控制菜单高度 */
             box-sizing: border-box;
         }
-        /* 主菜单项：水平分布 - 关键修复：给父容器固定宽度，确保子菜单定位基准稳定 */
+
+        /* 主菜单项：水平分布 */
         .banner-nav > li {
             position: relative; /* 子菜单定位基准 */
             padding: 0 10px; /* 菜单项之间的水平间距 */
-            min-width: 80px; /* 固定主菜单项宽度，避免子菜单宽度异常 */
-            text-align: center; /* 文字居中，确保子菜单对齐 */
         }
+
         /* 主菜单链接样式 */
         .banner-nav > li > a {
             color: #FFF;
@@ -170,35 +180,37 @@
             font-weight: bold;
             padding: 8px 5px; /* 链接点击区域 */
             white-space: nowrap; /* 防止文字换行 */
-            display: block; /* 让链接充满父容器，点击区域更大 */
         }
         .banner-nav > li > a:hover {
             text-decoration: underline;
         }
-        /* 子菜单样式：核心修复 - 定位逻辑+宽度+层级 */
+
+        /* 子菜单样式：主菜单上方居中显示 */
         .sub-menu {
             position: absolute;
-            bottom: 100%; /* 子菜单在主菜单上方（横屏默认） */
+            bottom: 100%; /* 子菜单在主菜单上方 */
             left: 50%;
             transform: translateX(-50%); /* 水平居中 */
             list-style: none;
-            background-color: #fff; /* 确保白色底色 */
+            background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             padding: 10px 0;
-            min-width: 120px; /* 固定最小宽度，避免过窄 */
+            min-width: 120px;
             width: auto;
-            white-space: nowrap; /* 防止子菜单文字换行 */
+            white-space: nowrap;
             display: none; /* 默认隐藏 */
             margin: 0;
-            z-index: 999; /* 大幅提高层级，避免被轮播图黑色背景覆盖 */
+            z-index: 20;
         }
+
         /* 鼠标悬浮主菜单时显示子菜单 */
         .banner-nav > li:hover .sub-menu {
             display: block;
         }
-        /* 子菜单链接样式 - 修复：让链接充满子菜单，底色生效 */
+
+        /* 子菜单链接样式 */
         .sub-menu li {
             padding: 5px 15px;
             text-align: center;
@@ -206,42 +218,41 @@
         .sub-menu li a {
             color: #666;
             text-decoration: none;
-            display: block; /* 链接充满li，hover时底色能覆盖整个区域 */
-            width: 100%;
-            height: 100%;
+            display: block;
         }
         .sub-menu li:hover {
             background-color: #f0f0f0;
         }
-        /* 竖屏适配调整 - 关键修复：子菜单定位+主菜单内边距 */
+        /* 竖屏适配调整 */
         .vertical .slideshow-indicators {
-            bottom: 100px; /* 恢复合理位置，避免过早上移 */
+            bottom: 750px; /* 竖屏时上移指示器，避免被菜单遮挡 */
         }
-        /* 修复竖屏主菜单内边距：之前700px导致菜单偏移，改为正常内边距 */
+        
         .vertical .banner-nav {
-            padding: 30px 0; /* 正常内边距，避免菜单被推到屏幕外 */
+            padding: 700px 0px; /* 减少竖屏时菜单上下内边距 */
             flex-wrap: nowrap; /* 防止菜单项换行 */
             overflow-x: auto; /* 允许横向滚动 */
             -webkit-overflow-scrolling: touch; /* 平滑滚动 */
-            background-color: rgba(0,0,0,0.5); /* 给主菜单加半透明背景，区分轮播图 */
         }
+        
         .vertical .banner-nav > li > a {
             font-size: 12px; /* 缩小竖屏时菜单文字 */
             padding: 4px 2px;
         }
-        /* 修复竖屏子菜单定位：之前top:100%导致方向错误，改为bottom:100%保持在主菜单上方 */
-        .vertical .sub-menu {
-            bottom: 100%; /* 子菜单在主菜单上方（与横屏一致，避免方向错误） */
-            margin-bottom: 5px; /* 与主菜单保持小间距，避免重叠 */
+     .vertical .sub-menu {
+            top: 100%; /* 子菜单在主菜单上方 */
         }
+
         /* 解决校训在小屏幕上可能过大的问题 */
         .vertical .banner-motto img {
             height: clamp(60px, 8vh, 90px);
         }
+        
         /* 解决校徽在小屏幕上可能过大的问题 */
         .vertical .banner-logo img {
             height: clamp(50px, 6vh, 80px);
         }
+
     </style>
 </head>
 <body>
@@ -257,17 +268,21 @@
                 <div class="item"><img src="images/校风.jpg" alt="校风"></div>
                 <div class="item"><img src="images/新起点.jpg" alt="新起点"></div>
             </div>
+            
             <!-- 轮播图指示器（小圆点）容器 -->
             <div class="slideshow-indicators" id="indicators"></div>
         </div>
+
         <!-- 校名校徽 -->
         <div class="banner-logo">
             <img src="images/二工大校名校徽6.png" alt="上海第二工业大学校名校徽">
         </div>
+
         <!-- 校训 -->
         <div class="banner-motto">
             <img src="images/校训.png" alt="上海第二工业大学校训">
         </div>
+
         <!-- 搜索功能 -->
         <div class="banner-search">
             <img src="images/搜索.png" alt="搜索按钮" id="search-btn">
@@ -276,6 +291,7 @@
                 <button>搜索</button>
             </div>
         </div>
+
         <!-- 底部主菜单 -->
         <header class="banner-header">
             <ul class="banner-nav">
@@ -371,4 +387,110 @@
                         <li><a href="#">图书馆</a></li>
                         <li><a href="#">文明在线</a></li>
                         <li><a href="#">校长信箱</a></li>
-                        <li><a href="#">易
+                        <li><a href="#">易班</a></li>
+                        <li><a href="#">心理测评系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">图书资源</a></li>
+            </ul>
+        </header>
+    </div>
+
+    <script>
+        // 轮播图逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.item');
+            const indicatorsContainer = document.getElementById('indicators');
+            let currentIndex = 0;
+            let interval; // 用于存储定时器
+            
+            // 创建指示器圆点
+            items.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (index === 0) {
+                    indicator.classList.add('active'); // 第一个圆点默认激活
+                }
+                
+                // 点击圆点切换图片
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetInterval(); // 重置定时器
+                });
+                
+                indicatorsContainer.appendChild(indicator);
+            });
+            
+            const indicators = document.querySelectorAll('.indicator');
+            
+            // 初始显示第一张图片
+            const firstImage = items[0].querySelector('img');
+            if (firstImage.complete) {
+                items[0].classList.add('active');
+            } else {
+                firstImage.addEventListener('load', () => items[0].classList.add('active'));
+            }
+            
+            // 切换到指定幻灯片
+            function goToSlide(index) {
+                items[currentIndex].classList.remove('active');
+                indicators[currentIndex].classList.remove('active');
+                
+                currentIndex = index;
+                
+                items[currentIndex].classList.add('active');
+                indicators[currentIndex].classList.add('active');
+            }
+            
+            // 显示下一张图片
+            function showNextImage() {
+                const nextIndex = (currentIndex + 1) % items.length;
+                goToSlide(nextIndex);
+            }
+            
+            // 重置定时器
+            function resetInterval() {
+                clearInterval(interval);
+                interval = setInterval(showNextImage, 5000);
+            }
+            
+            // 启动自动轮播
+            interval = setInterval(showNextImage, 5000);
+
+            // 屏幕方向检测逻辑
+            const banner = document.getElementById('banner');
+            
+            // 检查屏幕方向并设置样式
+            function checkOrientation() {
+                // 横屏: 宽度 > 高度; 竖屏: 高度 > 宽度
+                if (window.innerHeight > window.innerWidth) {
+                    banner.classList.add('vertical');
+                } else {
+                    banner.classList.remove('vertical');
+                }
+            }
+            
+            // 初始检查
+            checkOrientation();
+            
+            // 监听窗口大小变化（包括旋转屏幕）
+            window.addEventListener('resize', checkOrientation);
+        });
+
+        // 搜索框逻辑
+        const searchBtn = document.getElementById('search-btn');
+        const searchBox = document.getElementById('search-box');
+        const bannerSearch = document.querySelector('.banner-search');
+        
+        searchBtn.addEventListener('click', () => {
+            searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!bannerSearch.contains(e.target)) {
+                searchBox.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
