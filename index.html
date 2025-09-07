@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>二工大首页</title>
     <style>
         body {
@@ -232,6 +231,9 @@
         .vertical .banner-nav {
             padding: 450px 0px; /* 减少竖屏时菜单上下内边距 */
             flex-wrap: nowrap; /* 防止菜单项换行 */
+            overflow-x: auto; /* 允许横向滚动 */
+            -webkit-overflow-scrolling: touch; /* 平滑滚动 */
+
         }
         
         .vertical .banner-nav > li > a {
@@ -239,7 +241,7 @@
             padding: 4px 2px;
         }
      .vertical .sub-menu {
-            bottom: 100%; /* 子菜单在主菜单上方 */
+            top: 100%; /* 子菜单在主菜单上方 */
         }
 
 
