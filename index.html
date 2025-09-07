@@ -230,7 +230,7 @@
         }
         
         .vertical .banner-nav {
-            padding: 0px 0px; /* 减少竖屏时菜单上下内边距 */
+            padding: 30px 5px; /* 减少竖屏时菜单上下内边距 */
             flex-wrap: nowrap; /* 防止菜单项换行 */
             overflow-x: auto; /* 允许横向滚动 */
             -webkit-overflow-scrolling: touch; /* 平滑滚动 */
@@ -239,6 +239,15 @@
         .vertical .banner-nav > li > a {
             font-size: 12px; /* 缩小竖屏时菜单文字 */
             padding: 4px 2px;
+        }
+        /* 解决校训在小屏幕上可能过大的问题 */
+        .vertical .banner-motto img {
+            height: clamp(60px, 8vh, 90px);
+        }
+        
+        /* 解决校徽在小屏幕上可能过大的问题 */
+        .vertical .banner-logo img {
+            height: clamp(50px, 6vh, 80px);
         }
 
     </style>
