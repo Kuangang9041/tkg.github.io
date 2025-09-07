@@ -20,8 +20,8 @@
     left: 0;
     top: 0;
     width: 100vw; /* 宽度等于屏幕宽度 */
-    /* 竖屏时轮播图高度调整为不包含菜单的区域 */
-    height: 100vh;
+    height: 100vh; /* 高度等于屏幕高度 */
+    overflow: hidden;
 }
         /* 轮播图样式 */
         .banner-slideshow {
@@ -148,7 +148,7 @@
             cursor: pointer;
         }
 
-        /* 主菜单容器：默认固定在轮播图底部 */
+        /* 主菜单容器：固定在轮播图底部 */
         .banner-header {
             position: absolute;
             bottom: 0; /* 紧贴轮播图底部 */
@@ -226,24 +226,7 @@
         }
         /* 竖屏适配调整 */
         .vertical .slideshow-indicators {
-            bottom: 30px; /* 竖屏时将指示器放在轮播图内接近底部 */
-        }
-        
-        /* 竖屏时主菜单放在轮播图下面 */
-        .vertical .banner {
-            height: auto; /* 取消固定高度 */
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .vertical .banner-slideshow {
-            height: 70vh; /* 轮播图占屏幕70%高度 */
-        }
-        
-        .vertical .banner-header {
-            position: static; /* 取消绝对定位 */
-            background-color: rgba(0, 0, 0, 0.7); /* 增加背景色便于区分 */
-            margin-top: -5px; /* 贴近轮播图 */
+            bottom: 200px; /* 竖屏时上移指示器，避免被菜单遮挡 */
         }
         
         .vertical .banner-nav {
@@ -257,6 +240,25 @@
             font-size: 12px; /* 缩小竖屏时菜单文字 */
             padding: 4px 2px;
         }
+     .vertical .sub-menu {
+            position: absolute;
+            bottom: 100%; /* 子菜单在主菜单上方 */
+            left: 50%;
+            transform: translateX(-50%); /* 水平居中 */
+            list-style: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 10px 0;
+            min-width: 120px;
+            width: auto;
+            white-space: nowrap;
+            display: none; /* 默认隐藏 */
+            margin: 0;
+            z-index: 20;
+        }
+
         /* 解决校训在小屏幕上可能过大的问题 */
         .vertical .banner-motto img {
             height: clamp(60px, 8vh, 90px);
