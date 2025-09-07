@@ -226,12 +226,11 @@
         }
         /* 竖屏适配调整 */
         .vertical .slideshow-indicators {
-            top: 50px; /* 竖屏时上移指示器，避免被菜单遮挡 */
+            bottom: 750px; /* 竖屏时上移指示器，避免被菜单遮挡 */
         }
         
         .vertical .banner-nav {
             padding: 700px 0px; /* 减少竖屏时菜单上下内边距 */
-            flex-wrap: nowrap; /* 防止菜单项换行 */
             overflow-x: auto; /* 允许横向滚动 */
             -webkit-overflow-scrolling: touch; /* 平滑滚动 */
         }
