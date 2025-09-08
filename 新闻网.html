@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>上海第二工业大学 - 新闻网</title>
+  <style>
+    /* 全局样式重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Microsoft Yahei", sans-serif;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .banner-header {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      background-color: #367E7F;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0% 3%;
+      box-sizing: border-box;
+    }
+
+    .banner-logo {
+      font-size: 30px;
+      color: #fff;
+    }
+
+
+
+    /* 左侧校徽样式 */
+    .banner-logo img {
+      height: 60px;
+      width: auto;
+      vertical-align: middle;
+    }
+
+
+    .phone {
+     font-size: 18px;
+     color: #fff;
+
+}
+
+
+    .banner h1 {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      margin: 0px;
+      font-size: 24px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+    }
+
+    /* 学校介绍标题样式 */
+    .school-title {
+      font-size: 18px;
+      text-align: center;
+      margin: 20px 0;
+      color: #003366;
+    }
+
+
+    /* 主体内容 - 段落缩进样式 */
+    .content {
+     width: 90vw;
+     margin: 20px auto;
+      padding: 0 0px;
+    }
+
+    .content p {
+      text-indent: 2em;
+      text-align: justify;
+      margin-bottom: 0px;
+    }
+
+    .content p[style*="text-align:center"],
+    .content p[style*="display:block"],
+    .content p[style*="color:#666"] {
+      text-indent: 0;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .row .text {
+      flex: 1;
+      margin-right: 0px;
+    }
+
+    .row .image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .row .image img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #eee;
+    }
+
+    /* 底部区域 */
+    footer {
+      background: #003366;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #ffd700;
+    }
+
+    .footer-logo img {
+      max-width: 400px;
+      margin: 10px 0;
+    }
+
+/* 图标容器：横向排列 */
+.icon-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* 图标间距 */
+}
+
+/* 单个图标项：相对定位（为二维码绝对定位做容器） */
+.icon-item {
+  position: relative; 
+}
+
+/* 图标样式（可调整尺寸） */
+.social-icon {
+  width: 48px; 
+  cursor: pointer; /* 鼠标悬浮变手型 */
+}
+
+/* 二维码样式：默认隐藏，绝对定位 */
+.qrcode {
+  position: absolute; 
+  top: -120px; /* 二维码在图标上方（可调整位置，如 bottom: 120% 放下方） */
+  left: 50%; 
+  transform: translateX(-50%); /* 水平居中 */
+  width: 100px; /* 二维码尺寸 */
+  opacity: 0; /* 透明隐藏 */
+  visibility: hidden; /* 隐藏（避免占空间） */
+  transition: all 0.3s ease; /* 过渡动画 */
+  z-index: 999; /* 确保层级最高 */
+}
+
+/* 悬停时显示二维码 */
+.icon-item:hover .qrcode {
+  opacity: 1;
+  visibility: visible;
+}
+
+    .contact {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .copyright {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .copyright a {
+      color: #ffffff; /* 文字设为白色 */
+      text-decoration: none; /* 去掉下划线 */
+}
+
+     .copyright a:hover {
+        color: #ffd700; /* 悬停时变金色，与导航 hover 效果统一 */
+        text-decoration: none; /* 确保 hover 时仍无下划线 */
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- 横幅区域 -->
+  <header class="banner-header">
+    <div class="banner-logo">
+      <img src="images/二工大校名校徽6.png" alt="上海第二工业大学校徽">
+<span>| </span><span>新闻网</span>
+    </div>
+    <div class="phone">
+<span>&#9742; 021-50215021&nbsp;&nbsp;</span>
+<span>&#9993; xwzx@sspu.edu.cn</span>
+</div>
+
+  </header>
+  <h1 class="school-title">学校喜迎2025级新同学</h1>
+
+  <!-- 主体内容 -->
+  <main class="content">
+      <p style="font-size: 14px; text-indent: 0em; text-align: center;  margin: 20px 0; color: #808080;">发布时间：2025-09-07  供稿：学（研）工部、学生处  </p>
+
+      <p>金秋迎新季，逐梦正当时。9月6日，学校迎来了2025级新同学，青春洋溢的学子们即将在这里开启人生新篇章。</p>
+          <p><img src="images/19.jpg" height="400" style="display: block; margin: 0 auto;" /></p>
+          <p>校领导陆敏、谢华清、吴沛东、丁彬走访了新生报到现场、生活园区、新生寝室，亲切慰问初入校园的新生，为学生送上“爱心助学大礼包”，传递学校的温暖与关怀。同时，校领导及相关职能部处负责人也走访慰问了参与迎新工作的老师和志愿者。</p>
+          <p><img src="images/20.jpg" height="600" style="display: block; margin: 0 auto;" /></p>
+
+          <p><span style="font-family: '方正兰亭粗黑_GBK';">AI赋能助力迎新智慧升级。</span>为助力新生尽早融入大学生活，今年迎新工作融合AI技术创新，为新生打造全方位、智能化入学体验。迎新系统实现新生全覆盖，辅导员主动靠前服务，建立官方班级群，答疑解惑。我校AI 辅导员“工大先生”首次参与迎新工作，精准匹配并满足新生多样化需求，既高效响应新生关切，又有效填补辅导员工作的时间间隙，实现“全天候、无间断”答疑服务。迎新工作全面升级了数字化智能报到系统，为新生带来高效、便捷的入学体验。实时数据，动态更新各学院报到人数，直观感受与新同学的“同频共振”。</p>
+
+                <p><img src="images/21.jpg" height="400" style="display: block; margin: 0 auto;" /></p>
+          <p><span style="font-family: '方正兰亭粗黑_GBK';">全程志愿服务暖心相伴。</span>学校开通新生咨询热线，及时发布新生报到手册，为新生班级配备班导生，召开线上线下新生家长会，全方位为新生快速适应大学生活保驾护航。志愿者服务队伍一如既往、不畏骄阳，从地铁站到校门口，从报到处到宿舍楼，全程为新生及家长提供引导咨询、行李搬运等帮助和服务。</p>
+          <p><img src="images/22.jpg" height="400" style="display: block; margin: 0 auto;" /></p>
+
+      <p><span style="font-family: '方正兰亭粗黑_GBK';">创意迎新营造家的归属。</span>今年迎新季，学校和各学院都准备了诚意满满的“新生礼包”。迎新专刊、定制校园卡、笔记本、SSPU专属文创等。各学院精心布置报到台，搭配精彩纷呈的专属迎新仪式，新生在充满专业特色的场景里，伴着笑容与暖心话语感受校园文化、感知专业魅力，快速融入二工大大家庭。</p>
+      <p><img src="images/23.jpg" height="600" style="display: block; margin: 0 auto;" /></p>
+      <p><span style="font-family: '方正兰亭粗黑_GBK';">优化后勤服务为新生护航。</span>后勤服务中心以“用心服务，全力护航”为宗旨，为新生营造安全、温馨的校园环境。用心优化的菜品结构、精心准备的迎新套餐，营造更加明亮舒适的用餐环境，诚挚地迎接每一位新生的到来。</p>
+      <p><img src="images/24.jpg" height="400" style="display: block; margin: 0 auto;" /></p>
+
+      <p>接下来的两周时间里，学校将统一组织军训、入学教育等系列活动。入学教育内容丰富多元，包括：学业教育、心理健康教育、职业生涯规划教育、劳动教育、安全教育等。 此外，各学院也结合自身专业特色，量身打造了专属入学教育活动，全方位为新生开启大学新旅程提供支持。</p>
+
+
+  </main>
+
+  <!-- 底部区域 -->
+  <footer>
+    <div class="footer-links">
+快速链接：   
+      <a href="#">最美科技工作者</a>
+      <a href="#">课程思政</a>
+      <a href="#">智能制造工厂</a>
+      <a href="#">人才招聘</a>
+      <a href="#">本科教育教学审核评估专题网</a>
+    </div>
+    <div class="footer-logo">
+      <img src="images/二工大校名校徽6.png" alt="上海第二工业大学校徽" />
+    </div>
+ <!-- 图标&二维码容器 -->
+  <div class="icon-group">
+    <!-- 图标1 + 二维码1 -->
+    <div class="icon-item">
+      <img src="images/互联网.png" class="social-icon" alt="互联网">
+      <img src="images/互联网.jpg" class="qrcode" alt="互联网">
+    </div>
+    <!-- 图标2 + 二维码2 -->
+    <div class="icon-item">
+      <img src="images/微信公众号.png" class="social-icon" alt="微信公众号">
+      <img src="images/微信公众号.jpg" class="qrcode" alt="微信公众号">
+    </div>
+    <!-- 图标3 + 二维码3 -->
+    <div class="icon-item">
+      <img src="images/新浪微博.png" class="social-icon" alt="新浪微博">
+      <img src="images/新浪微博.jpg" class="qrcode" alt="新浪微博">
+    </div>
+    <!-- 图标4 + 二维码4 -->
+    <div class="icon-item">
+      <img src="images/抖音.png" class="social-icon" alt="抖音">
+      <img src="images/抖音.jpg" class="qrcode" alt="抖音">
+    </div>
+    <!-- 图标5+ 二维码5 -->
+    <div class="icon-item">
+      <img src="images/快手.png" class="social-icon" alt="快手">
+      <img src="images/快手.jpg" class="qrcode" alt="快手">
+    </div>
+    <!-- 图标6+ 二维码6 -->
+    <div class="icon-item">
+      <img src="images/微信视频号.png" class="social-icon" alt="微信视频号">
+      <img src="images/微信视频号.jpg" class="qrcode" alt="微信视频号">
+    </div>
+  </div>
+    <div class="contact">
+      地址：上海市浦东新区金海路2360号 邮编：201209<br />
+      电话：021-50215021
+    </div>
+<div class="copyright">
+  Copyright©2023上海第二工业大学版权所有   
+  <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank">
+    <img src="images/bei.png" alt="备案图标" 
+         style="width:20px; height:20px; vertical-align: middle; margin-right: 5px;">
+    沪公网安备31011502008354号 沪ICP备1902926号-1
+  </a>
+    </div>
+  </footer>
+</body>
+
+</html>
