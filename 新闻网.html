@@ -92,7 +92,7 @@
     }
 
 /* 针对手机竖屏的适配（最大宽度600px，可根据需要调整） */
-@media (max-width: 600px) and (orientation: portrait) {
+@media (max-width: 500px) and (orientation: portrait) {
   .content p img {
     width: 100% !important; /* 手机竖屏时图片宽度与段落一致 */
     height: auto !important; /* 保持图片比例 */
@@ -101,7 +101,7 @@
 }
 
 /* 电脑和手机横屏时保持原有样式 */
-@media not all and (max-width: 600px) and (orientation: portrait) {
+@media not all and (max-width: 500px) and (orientation: portrait) {
   .content p img {
     /* 不改变原有尺寸设置，仅确保图片不超出容器 */
     max-width: 100%;
