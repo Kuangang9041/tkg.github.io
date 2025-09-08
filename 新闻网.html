@@ -90,11 +90,18 @@
     .content p[style*="color:#666"] {
       text-indent: 0;
     }
-.vertical .content img {
-width: 100vw;
+
+.content p img {
+  /* 让图片宽度与段落保持一致 */
+  width: 100%;
+  /* 移除固定高度，保持图片比例 */
+  height: auto !important;
+  /* 确保图片不会超出容器 */
+  max-width: 100%;
+  /* 保持原有的居中效果 */
+  display: block;
+  margin: 0 auto;
 }
-
-
 
     .row {
       display: flex;
