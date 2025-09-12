@@ -92,7 +92,10 @@
     }
 
 .vertical .content img {
-  width: 100%;
+  width: 100% !important; /* 强制覆盖可能的其他样式 */
+  height: auto !important; /* 取消固定高度，保持比例 */
+  max-width: 100%; /* 防止溢出容器 */
+  box-sizing: border-box; /* 确保宽度计算正确 */
 }
 
     /* 底部区域 */
