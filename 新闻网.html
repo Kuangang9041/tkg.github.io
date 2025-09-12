@@ -287,6 +287,22 @@
   </a>
     </div>
   </footer>
-</body>
+<script>
+// 监测屏幕方向变化并添加/移除vertical类
+function checkOrientation() {
+  const html = document.documentElement;
+  // 判断是否为竖屏（高度 >= 宽度）
+  if (window.innerHeight >= window.innerWidth) {
+    html.classList.add('vertical');
+  } else {
+    html.classList.remove('vertical');
+  }
+}
 
+// 初始加载时执行一次
+checkOrientation();
+// 屏幕旋转时重新检测
+window.addEventListener('resize', checkOrientation);
+</script>
+</body>
 </html>
