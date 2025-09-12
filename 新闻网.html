@@ -91,10 +91,14 @@
       text-indent: 0;
     }
 
-.vertical .content img {
-width: 100%;
+@media (max-width: 768px) and (orientation: portrait) {
+  /* 手机竖屏时，图片宽度与段落一致（继承content的90%宽度） */
+  .content img {
+    width: 100%;
+    height: auto; /* 保持图片比例，避免拉伸变形 */
+    max-width: 100%; /* 限制最大宽度，防止溢出 */
+  }
 }
-
     /* 底部区域 */
     footer {
       background: #003366;
