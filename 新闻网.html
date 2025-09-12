@@ -287,25 +287,21 @@
     </div>
   </footer>
 <script>
-            // 屏幕方向检测逻辑
-            const banner = document.getElementById('banner');
-            
-            // 检查屏幕方向并设置样式
-            function checkOrientation() {
-                // 横屏: 宽度 > 高度; 竖屏: 高度 > 宽度
-                if (window.innerHeight > window.innerWidth) {
-                    banner.classList.add('vertical');
-                } else {
-                    banner.classList.remove('vertical');
-                }
-            }
-            
-            // 初始检查
-            checkOrientation();
-            
-            // 监听窗口大小变化（包括旋转屏幕）
-            window.addEventListener('resize', checkOrientation);
-        });
+// 监测屏幕方向变化并添加/移除vertical类
+function checkOrientation() {
+  const html = document.documentElement;
+  // 判断是否为竖屏（高度 >= 宽度）
+  if (window.innerHeight >= window.innerWidth) {
+    html.classList.add('vertical');
+  } else {
+    html.classList.remove('vertical');
+  }
+}
+
+// 初始加载时执行一次
+checkOrientation();
+// 屏幕旋转时重新检测
+window.addEventListener('resize', checkOrientation);
 </script>
 </body>
 </html>
