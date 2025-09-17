@@ -233,41 +233,29 @@
             z-index: 10;
         }
 
-.vertical .slideshow-indicators {
-    position: absolute;
-    bottom: auto;
-    top: 30%; /* 调整指示器垂直位置（可根据需要修改） */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10; /* 确保在轮播图上方 */
-}
+        /* 竖屏适配调整 */
+        .vertical .slideshow-indicators {
+        bottom: auto; /* 取消原有的底部定位 */
+        top: 30%; /* 固定指示器位置，与菜单保持5%左右的间距 */
+        }
+
         
-/* 修改竖屏状态下的主菜单样式 */
 .vertical .banner-nav {
-    /* 移除绝对定位，使用相对定位跟随指示器 */
-    position: relative;
-    /* 关键：通过margin-top让菜单紧跟在指示器下方 */
-    margin-top: 10px; /* 控制与小圆点的距离（可调整） */
-    /* 保持宽度和布局特性 */
-    width: 100%;
+    /* 关键修改：使用绝对定位固定在指示器下方 */
+    position: absolute;
+    bottom: auto; /* 取消原本的底部固定 */
+   bottom : 40%; /* 调整此值控制与指示器的距离（配合指示器的70%底部定位） */
+    left: 0;
+    width: 100%; /* 保持宽度充满屏幕 */
+    
+    /* 保留原有的横向滚动特性 */
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 2% 10px;
-    z-index: 10;
+    padding: 2% 10px; /* 适当减小内边距让菜单更紧凑 */
+    background-color: rgba(0, 0, 0, 0.3); /* 可选：添加半透明背景增加可读性 */
 }
-
-/* 调整主菜单容器的定位（关键） */
-.vertical .banner-header {
-    position: absolute;
-    /* 将菜单容器定位到指示器下方区域 */
-    top: 32%; /* 比指示器top值大一点（与指示器top + 自身高度匹配） */
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    /* 取消底部固定 */
-    bottom: auto;
-}        
+        
         .vertical .banner-nav > li > a {
             font-size: 12px; /* 缩小竖屏时菜单文字 */
             padding: 0px 0px;
