@@ -249,7 +249,14 @@
     position: relative;
     /* 关键：设置顶部距离为指示器下方近处（可根据需要调整像素值） */
     margin-top: 20px; /* 控制与指示器的间距 */
-}        
+}
+/* 同时调整竖屏状态下的菜单容器定位 */
+.vertical .banner-header {
+    /* 取消固定在底部，改为相对定位 */
+    position: relative;
+    /* 让菜单紧跟在指示器下方 */
+    margin-top: -10px; /* 微调与指示器的距离 */
+}  
         .vertical .banner-nav > li > a {
             font-size: 12px; /* 缩小竖屏时菜单文字 */
             padding: 0px 0px;
