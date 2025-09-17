@@ -61,13 +61,12 @@
     object-fit: contain;
     object-position: top;
     background-color: #000; /* 黑色背景填充空白区域 */
-   display: block;
 }
 
         /* 轮播图指示器（小圆点） */
         .slideshow-indicators {
             position: absolute;
-            bottom: 120px; /* 位于轮播图底部，菜单上方 */
+            bottom: 8%; /* 位于轮播图底部，菜单上方 */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -236,11 +235,12 @@
 
         /* 竖屏适配调整 */
         .vertical .slideshow-indicators {
+            bottom: 5%; /* 竖屏时上移指示器，避免被菜单遮挡 */
         }
 
         
         .vertical .banner-nav {
-            padding: 650px 0px; /* 减少竖屏时菜单上下内边距 */
+            padding: 3% 0px; /* 减少竖屏时菜单上下内边距 */
             flex-wrap: nowrap; /* 防止菜单项换行 */
             overflow-x: auto; /* 允许横向滚动 */
             -webkit-overflow-scrolling: touch; /* 平滑滚动 */
