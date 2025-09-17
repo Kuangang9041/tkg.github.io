@@ -247,15 +247,13 @@
     /* 移除绝对定位，使用相对定位跟随指示器 */
     position: relative;
     /* 关键：通过margin-top让菜单紧跟在指示器下方 */
-    margin-top: 10px; /* 控制与小圆点的距离（可调整） */
+    margin-top: 20px; /* 控制与小圆点的距离（可调整） */
     /* 保持宽度和布局特性 */
     width: 100%;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     padding: 2% 10px;
-    background-color: rgba(0, 0, 0, 0.3);
-    /* 确保菜单在指示器下方且不被覆盖 */
     z-index: 10;
 }
 
