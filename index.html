@@ -239,14 +239,17 @@
         }
 
         
-        .vertical .banner-nav {
-            bottom: 60%;
-            flex-wrap: nowrap; /* 防止菜单项换行 */
-            overflow-x: auto; /* 允许横向滚动 */
-            -webkit-overflow-scrolling: touch; /* 平滑滚动 */
-
-        }
-        
+.vertical .banner-nav {
+    /* 移除固定内边距（原650px会导致位置不固定） */
+    padding: 20px 0; /* 适当缩小内边距 */
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 添加相对定位，确保基于父容器定位 */
+    position: relative;
+    /* 关键：设置顶部距离为指示器下方近处（可根据需要调整像素值） */
+    margin-top: 20px; /* 控制与指示器的间距 */
+}        
         .vertical .banner-nav > li > a {
             font-size: 12px; /* 缩小竖屏时菜单文字 */
             padding: 0px 0px;
