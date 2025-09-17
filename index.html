@@ -66,7 +66,7 @@
         /* 轮播图指示器（小圆点） */
         .slideshow-indicators {
             position: absolute;
-            bottom: 15%; /* 位于轮播图底部，菜单上方 */
+            bottom: 120px; /* 位于轮播图底部，菜单上方 */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -164,7 +164,7 @@
             width: 100%; /* 充满容器宽度 */
             list-style: none;
             margin: 0;
-            padding: 3% 10px; /* 上下内边距，控制菜单高度 */
+            padding: 60px 10px; /* 上下内边距，控制菜单高度 */
             box-sizing: border-box;
         }
 
@@ -235,26 +235,17 @@
 
         /* 竖屏适配调整 */
         .vertical .slideshow-indicators {
-        bottom: auto; /* 取消原有的底部定位 */
-        top: 30%; /* 固定指示器位置，与菜单保持5%左右的间距 */
+            bottom: 70%; /* 竖屏时上移指示器，避免被菜单遮挡 */
         }
 
         
-.vertical .banner-nav {
-    /* 关键修改：使用绝对定位固定在指示器下方 */
-    position: absolute;
-    bottom: auto; /* 取消原本的底部固定 */
-   bottom : 40%; /* 调整此值控制与指示器的距离（配合指示器的70%底部定位） */
-    left: 0;
-    width: 100%; /* 保持宽度充满屏幕 */
-    
-    /* 保留原有的横向滚动特性 */
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 2% 10px; /* 适当减小内边距让菜单更紧凑 */
-    background-color: rgba(0, 0, 0, 0.3); /* 可选：添加半透明背景增加可读性 */
-}
+        .vertical .banner-nav {
+            padding: 650px 0px; /* 减少竖屏时菜单上下内边距 */
+            flex-wrap: nowrap; /* 防止菜单项换行 */
+            overflow-x: auto; /* 允许横向滚动 */
+            -webkit-overflow-scrolling: touch; /* 平滑滚动 */
+
+        }
         
         .vertical .banner-nav > li > a {
             font-size: 12px; /* 缩小竖屏时菜单文字 */
