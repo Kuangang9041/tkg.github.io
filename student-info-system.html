@@ -48,7 +48,7 @@
         <!-- 头部标题 -->
         <header class="text-center mb-10">
             <div class="flex items-center justify-center mb-3">
-                <img src="https://picsum.photos/60/60" alt="上海第二工业大学校徽" class="w-12 h-12 mr-3">
+                <img src="images/校徽.jpg" alt="上海第二工业大学校徽" class="w-15 h-12 mr-3">
                 <h1 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-primary">上海第二工业大学</h1>
             </div>
             <p class="text-gray-600 text-lg">学生信息管理系统</p>
@@ -369,335 +369,328 @@
     </div>
 
     <script>
-        // 页面加载完成后执行
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM元素引用
-            const loginSection = document.getElementById('login-section');
-            const registerSection = document.getElementById('register-section');
-            const studentInfoSection = document.getElementById('student-info-section');
-            const showRegisterBtn = document.getElementById('show-register');
-            const showLoginBtn = document.getElementById('show-login');
-            const logoutBtn = document.getElementById('logout-btn');
-            const toggleLoginPassword = document.getElementById('toggle-login-password');
-            const toggleRegisterPassword = document.getElementById('toggle-register-password');
-            const loginPassword = document.getElementById('login-password');
-            const registerPassword = document.getElementById('register-password');
-            const confirmPassword = document.getElementById('confirm-password');
-            const passwordValidation = document.getElementById('password-validation');
-            const passwordMatch = document.getElementById('password-match');
-            const toast = document.getElementById('toast');
-            const toastIcon = document.getElementById('toast-icon');
-            const toastMessage = document.getElementById('toast-message');
-            
-            // 登录表单
-            const loginForm = document.getElementById('login-form');
-            // 注册表单
-            const registerForm = document.getElementById('register-form');
-            // 学生信息表单
-            const studentInfoForm = document.getElementById('student-info-form');
-            
-            // 地区选择相关元素
-            const provinceSelect = document.getElementById('province');
-            const citySelect = document.getElementById('city');
-            const districtSelect = document.getElementById('district');
-            
-            // 地区数据
-            const locationData = {
-                "北京市": {
-                    "北京市": ["东城区", "西城区", "朝阳区", "丰台区", "石景山区", "海淀区", "顺义区", "通州区", "大兴区", "房山区", "门头沟区", "昌平区", "平谷区", "密云区", "怀柔区", "延庆区"]
-                },
-                "上海市": {
-                    "上海市": ["黄浦区", "徐汇区", "长宁区", "静安区", "普陀区", "虹口区", "杨浦区", "闵行区", "宝山区", "嘉定区", "浦东新区", "金山区", "松江区", "青浦区", "奉贤区", "崇明区"]
-                },
-                "江苏省": {
-                    "南京市": ["玄武区", "秦淮区", "建邺区", "鼓楼区", "浦口区", "栖霞区", "雨花台区", "江宁区", "六合区", "溧水区", "高淳区"],
-                    "苏州市": ["姑苏区", "虎丘区", "吴中区", "相城区", "吴江区", "常熟市", "张家港市", "昆山市", "太仓市"],
-                    "无锡市": ["梁溪区", "锡山区", "惠山区", "滨湖区", "新吴区", "江阴市", "宜兴市"]
-                    // 可根据需要添加更多城市
-                },
-                "浙江省": {
-                    "杭州市": ["上城区", "下城区", "江干区", "拱墅区", "西湖区", "滨江区", "萧山区", "余杭区", "富阳区", "临安区", "桐庐县", "淳安县", "建德市"],
-                    "宁波市": ["海曙区", "江北区", "北仑区", "镇海区", "鄞州区", "奉化区", "象山县", "宁海县", "余姚市", "慈溪市"]
-                    // 可根据需要添加更多城市
-                }
-                // 可根据需要添加更多省份和城市
-            };
-            
-            // 初始化省份下拉框
-            function initProvinces() {
-                // 清空现有选项
-                provinceSelect.innerHTML = '<option value="">请选择省份</option>';
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM元素引用
+    const loginSection = document.getElementById('login-section');
+    const registerSection = document.getElementById('register-section');
+    const studentInfoSection = document.getElementById('student-info-section');
+    const showRegisterBtn = document.getElementById('show-register');
+    const showLoginBtn = document.getElementById('show-login');
+    const logoutBtn = document.getElementById('logout-btn');
+    const toggleLoginPassword = document.getElementById('toggle-login-password');
+    const toggleRegisterPassword = document.getElementById('toggle-register-password');
+    const loginPassword = document.getElementById('login-password');
+    const registerPassword = document.getElementById('register-password');
+    const confirmPassword = document.getElementById('confirm-password');
+    const passwordValidation = document.getElementById('password-validation');
+    const passwordMatch = document.getElementById('password-match');
+    const toast = document.getElementById('toast');
+    const toastIcon = document.getElementById('toast-icon');
+    const toastMessage = document.getElementById('toast-message');
+    
+    // 登录表单
+    const loginForm = document.getElementById('login-form');
+    // 注册表单
+    const registerForm = document.getElementById('register-form');
+    // 学生信息表单
+    const studentInfoForm = document.getElementById('student-info-form');
+    
+    // 地区选择相关元素
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+    const districtSelect = document.getElementById('district');
+    
+    // 定义直辖市列表
+    const municipalities = ["北京市", "上海市", "天津市", "重庆市"];
+    
+    // 地区数据
+    const locationData = {
+        "北京市": {
+            "北京市": ["东城区", "西城区", "朝阳区", "丰台区", "石景山区", "海淀区", "顺义区", "通州区", "大兴区", "房山区", "门头沟区", "昌平区", "平谷区", "密云区", "怀柔区", "延庆区"]
+        },
+        "上海市": {
+            "上海市": ["黄浦区", "徐汇区", "长宁区", "静安区", "普陀区", "虹口区", "杨浦区", "闵行区", "宝山区", "嘉定区", "浦东新区", "金山区", "松江区", "青浦区", "奉贤区", "崇明区"]
+        },
+        "天津市": {
+            "天津市": ["和平区", "河东区", "河西区", "南开区", "河北区", "红桥区", "东丽区", "西青区", "津南区", "北辰区", "武清区", "宝坻区", "滨海新区", "宁河区", "静海区", "蓟州区"]
+        },
+        "重庆市": {
+            "重庆市": ["万州区", "黔江区", "涪陵区", "渝中区", "大渡口区", "江北区", "沙坪坝区", "九龙坡区", "南岸区", "北碚区", "渝北区", "巴南区", "长寿区", "江津区", "合川区"]
+        },
+        "江苏省": {
+            "南京市": ["玄武区", "秦淮区", "建邺区", "鼓楼区", "浦口区", "栖霞区", "雨花台区", "江宁区", "六合区", "溧水区", "高淳区"],
+            "苏州市": ["姑苏区", "虎丘区", "吴中区", "相城区", "吴江区", "常熟市", "张家港市", "昆山市", "太仓市"],
+            "无锡市": ["梁溪区", "锡山区", "惠山区", "滨湖区", "新吴区", "江阴市", "宜兴市"]
+        },
+        "浙江省": {
+            "杭州市": ["上城区", "下城区", "江干区", "拱墅区", "西湖区", "滨江区", "萧山区", "余杭区", "富阳区", "临安区", "桐庐县", "淳安县", "建德市"],
+            "宁波市": ["海曙区", "江北区", "北仑区", "镇海区", "鄞州区", "奉化区", "象山县", "宁海县", "余姚市", "慈溪市"]
+        }
+    };
+    
+    // 初始化省份下拉框
+    function initProvinces() {
+        provinceSelect.innerHTML = '<option value="">请选择省份</option>';
+        
+        Object.keys(locationData).forEach(province => {
+            const option = document.createElement('option');
+            option.value = province;
+            option.textContent = province;
+            provinceSelect.appendChild(option);
+        });
+    }
+    
+    // 根据选中的省份更新城市下拉框
+    function updateCities() {
+        const selectedProvince = provinceSelect.value;
+        
+        // 重置状态
+        citySelect.innerHTML = '';
+        districtSelect.innerHTML = '<option value="">请先选择城市</option>';
+        districtSelect.disabled = true;
+        citySelect.classList.remove('hidden');
+        
+        if (selectedProvince && locationData[selectedProvince]) {
+            if (municipalities.includes(selectedProvince)) {
+                // 直辖市处理逻辑
+                citySelect.classList.add('hidden');
+                const defaultCity = Object.keys(locationData[selectedProvince])[0];
+                updateDistricts(selectedProvince, defaultCity);
+            } else {
+                // 普通省份处理逻辑
+                citySelect.disabled = false;
+                citySelect.innerHTML = '<option value="">请选择城市</option>';
                 
-                // 添加所有省份
-                Object.keys(locationData).forEach(province => {
+                Object.keys(locationData[selectedProvince]).forEach(city => {
                     const option = document.createElement('option');
-                    option.value = province;
-                    option.textContent = province;
-                    provinceSelect.appendChild(option);
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
                 });
             }
+        } else {
+            citySelect.disabled = true;
+            citySelect.innerHTML = '<option value="">请先选择省份</option>';
+        }
+    }
+    
+    // 修复：根据选中的城市更新区县下拉框
+    function updateDistricts(selectedProvince, selectedCity) {
+        // 确定当前选中的省份和城市
+        const province = selectedProvince || provinceSelect.value;
+        const city = selectedCity || citySelect.value;
+        
+        // 清空区县下拉框
+        districtSelect.innerHTML = '';
+        
+        // 检查是否有有效的省份和城市数据
+        if (province && city && locationData[province] && locationData[province][city]) {
+            // 加载区县数据
+            districtSelect.disabled = false;
+            districtSelect.innerHTML = '<option value="">请选择区县</option>';
             
-            // 根据选中的省份更新城市下拉框
-            function updateCities() {
-                const selectedProvince = provinceSelect.value;
-                
-                // 清空现有选项并重置状态
-                citySelect.innerHTML = '';
+            locationData[province][city].forEach(district => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        } else {
+            // 根据不同情况显示不同提示
+            if (!province) {
+                districtSelect.innerHTML = '<option value="">请先选择省份</option>';
+            } else {
                 districtSelect.innerHTML = '<option value="">请先选择城市</option>';
-                districtSelect.disabled = true;
-                
-                if (selectedProvince && locationData[selectedProvince]) {
-                    // 启用城市选择框
-                    citySelect.disabled = false;
-                    citySelect.innerHTML = '<option value="">请选择城市</option>';
-                    
-                    // 添加该省份的所有城市
-                    Object.keys(locationData[selectedProvince]).forEach(city => {
-                        const option = document.createElement('option');
-                        option.value = city;
-                        option.textContent = city;
-                        citySelect.appendChild(option);
-                    });
-                } else {
-                    // 禁用城市选择框
-                    citySelect.disabled = true;
-                    citySelect.innerHTML = '<option value="">请先选择省份</option>';
-                }
             }
-            
-            // 根据选中的城市更新区县下拉框
-            function updateDistricts() {
-                const selectedProvince = provinceSelect.value;
-                const selectedCity = citySelect.value;
-                
-                // 清空现有选项
-                districtSelect.innerHTML = '';
-                
-                if (selectedProvince && selectedCity && locationData[selectedProvince] && locationData[selectedProvince][selectedCity]) {
-                    // 启用区县选择框
-                    districtSelect.disabled = false;
-                    districtSelect.innerHTML = '<option value="">请选择区县</option>';
-                    
-                    // 添加该城市的所有区县
-                    locationData[selectedProvince][selectedCity].forEach(district => {
-                        const option = document.createElement('option');
-                        option.value = district;
-                        option.textContent = district;
-                        districtSelect.appendChild(option);
-                    });
-                } else {
-                    // 禁用区县选择框
-                    districtSelect.disabled = true;
-                    districtSelect.innerHTML = '<option value="">请先选择城市</option>';
-                }
-            }
-            
-            // 显示提示消息
-            function showToast(message, isSuccess = true) {
-                toastMessage.textContent = message;
-                
-                if (isSuccess) {
-                    toast.className = 'fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 opacity-100 flex items-center bg-green-50 text-green-800 border border-green-200';
-                    toastIcon.className = 'fa fa-check-circle mr-2';
-                } else {
-                    toast.className = 'fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 opacity-100 flex items-center bg-red-50 text-red-800 border border-red-200';
-                    toastIcon.className = 'fa fa-exclamation-circle mr-2';
-                }
-                
-                // 3秒后隐藏提示
-                setTimeout(() => {
-                    toast.className = 'fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0 flex items-center';
-                }, 3000);
-            }
-            
-            // 验证密码强度
-            function validatePassword(password) {
-                // 密码至少8个字符
-                const lengthValid = password.length >= 8;
-                // 包含数字
-                const hasNumber = /\d/.test(password);
-                // 包含字母
-                const hasLetter = /[a-zA-Z]/.test(password);
-                // 包含英文符号
-                const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-                
-                const isValid = lengthValid && hasNumber && hasLetter && hasSymbol;
-                
-                // 更新密码验证提示
-                if (password.length === 0) {
-                    passwordValidation.className = 'mt-1 text-xs hidden';
-                } else if (isValid) {
-                    passwordValidation.className = 'mt-1 text-xs text-green-600';
-                    passwordValidation.innerHTML = '<i class="fa fa-check-circle mr-1"></i> 密码强度符合要求';
-                } else {
-                    passwordValidation.className = 'mt-1 text-xs text-red-600';
-                    let message = '<i class="fa fa-exclamation-circle mr-1"></i> 密码不符合要求：';
-                    if (!lengthValid) message += ' 至少8个字符';
-                    if (!hasNumber) message += ' 需包含数字';
-                    if (!hasLetter) message += ' 需包含字母';
-                    if (!hasSymbol) message += ' 需包含英文符号';
-                    passwordValidation.innerHTML = message;
-                }
-                
-                return isValid;
-            }
-            
-            // 检查密码是否匹配
-            function checkPasswordMatch() {
-                const password = registerPassword.value;
-                const confirm = confirmPassword.value;
-                
-                if (confirm.length === 0) {
-                    passwordMatch.className = 'mt-1 text-xs hidden';
-                    return false;
-                }
-                
-                if (password === confirm) {
-                    passwordMatch.className = 'mt-1 text-xs text-green-600';
-                    passwordMatch.innerHTML = '<i class="fa fa-check-circle mr-1"></i> 密码匹配';
-                    return true;
-                } else {
-                    passwordMatch.className = 'mt-1 text-xs text-red-600';
-                    passwordMatch.innerHTML = '<i class="fa fa-exclamation-circle mr-1"></i> 密码不匹配';
-                    return false;
-                }
-            }
-            
-            // 切换密码可见性
-            function togglePasswordVisibility(passwordInput, toggleButton) {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                
-                // 切换图标
-                if (type === 'password') {
-                    toggleButton.innerHTML = '<i class="fa fa-eye-slash"></i>';
-                } else {
-                    toggleButton.innerHTML = '<i class="fa fa-eye"></i>';
-                }
-            }
-            
-            // 事件监听器 - 显示注册表单
-            showRegisterBtn.addEventListener('click', function() {
-                loginSection.classList.add('hidden');
-                registerSection.classList.remove('hidden');
-            });
-            
-            // 事件监听器 - 显示登录表单
-            showLoginBtn.addEventListener('click', function() {
-                registerSection.classList.add('hidden');
-                loginSection.classList.remove('hidden');
-            });
-            
-            // 事件监听器 - 退出登录
-            logoutBtn.addEventListener('click', function() {
-                studentInfoSection.classList.add('hidden');
-                loginSection.classList.remove('hidden');
-                showToast('已成功退出登录');
-            });
-            
-            // 事件监听器 - 切换登录密码可见性
-            toggleLoginPassword.addEventListener('click', function() {
-                togglePasswordVisibility(loginPassword, toggleLoginPassword);
-            });
-            
-            // 事件监听器 - 切换注册密码可见性
-            toggleRegisterPassword.addEventListener('click', function() {
-                togglePasswordVisibility(registerPassword, toggleRegisterPassword);
-            });
-            
-            // 事件监听器 - 注册密码输入验证
-            registerPassword.addEventListener('input', function() {
-                validatePassword(this.value);
-                checkPasswordMatch();
-            });
-            
-            // 事件监听器 - 确认密码输入验证
-            confirmPassword.addEventListener('input', function() {
-                checkPasswordMatch();
-            });
-            
-            // 事件监听器 - 省份选择变化
-            provinceSelect.addEventListener('change', updateCities);
-            
-            // 事件监听器 - 城市选择变化
-            citySelect.addEventListener('change', updateDistricts);
-            
-            // 事件监听器 - 登录表单提交
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const username = document.getElementById('login-username').value;
-                const password = loginPassword.value;
-                
-                // 简单验证
-                if (!username || !password) {
-                    showToast('请输入用户名和密码', false);
-                    return;
-                }
-                
-                // 模拟登录成功
-                showToast('登录成功，正在进入系统...');
-                setTimeout(() => {
-                    loginSection.classList.add('hidden');
-                    studentInfoSection.classList.remove('hidden');
-                }, 1000);
-            });
-            
-            // 事件监听器 - 注册表单提交
-            registerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const username = document.getElementById('register-username').value;
-                const password = registerPassword.value;
-                const confirm = confirmPassword.value;
-                
-                // 验证
-                if (!username) {
-                    showToast('请输入用户名', false);
-                    return;
-                }
-                
-                if (!validatePassword(password)) {
-                    showToast('密码不符合要求', false);
-                    return;
-                }
-                
-                if (!checkPasswordMatch()) {
-                    showToast('两次输入的密码不匹配', false);
-                    return;
-                }
-                
-                // 模拟注册成功
-                showToast('注册成功，请登录');
-                setTimeout(() => {
-                    registerSection.classList.add('hidden');
-                    loginSection.classList.remove('hidden');
-                    // 清空表单
-                    registerForm.reset();
-                    passwordValidation.className = 'mt-1 text-xs hidden';
-                    passwordMatch.className = 'mt-1 text-xs hidden';
-                }, 1000);
-            });
-            
-            // 事件监听器 - 学生信息表单提交
-            studentInfoForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // 验证出生日期格式
-                const birthdate = document.getElementById('birthdate').value;
-                const birthdatePattern = /^\d{8}$/;
-                if (!birthdatePattern.test(birthdate)) {
-                    showToast('出生日期格式不正确，请使用yyyymmdd格式', false);
-                    return;
-                }
-                
-                // 模拟保存成功
-                showToast('学生信息保存成功');
-            });
-            
-            // 初始化省份数据
-            initProvinces();
-        });
+            districtSelect.disabled = true;
+        }
+    }
+    
+    // 显示提示消息
+    function showToast(message, isSuccess = true) {
+        toastMessage.textContent = message;
+        
+        if (isSuccess) {
+            toast.className = 'fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 opacity-100 flex items-center bg-green-50 text-green-800 border border-green-200';
+            toastIcon.className = 'fa fa-check-circle mr-2';
+        } else {
+            toast.className = 'fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 opacity-100 flex items-center bg-red-50 text-red-800 border border-red-200';
+            toastIcon.className = 'fa fa-exclamation-circle mr-2';
+        }
+        
+        setTimeout(() => {
+            toast.className = 'fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0 flex items-center';
+        }, 3000);
+    }
+    
+    // 验证密码强度
+    function validatePassword(password) {
+        const lengthValid = password.length >= 8;
+        const hasNumber = /\d/.test(password);
+        const hasLetter = /[a-zA-Z]/.test(password);
+        const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        
+        const isValid = lengthValid && hasNumber && hasLetter && hasSymbol;
+        
+        if (password.length === 0) {
+            passwordValidation.className = 'mt-1 text-xs hidden';
+        } else if (isValid) {
+            passwordValidation.className = 'mt-1 text-xs text-green-600';
+            passwordValidation.innerHTML = '<i class="fa fa-check-circle mr-1"></i> 密码强度符合要求';
+        } else {
+            passwordValidation.className = 'mt-1 text-xs text-red-600';
+            let message = '<i class="fa fa-exclamation-circle mr-1"></i> 密码不符合要求：';
+            if (!lengthValid) message += ' 至少8个字符';
+            if (!hasNumber) message += ' 需包含数字';
+            if (!hasLetter) message += ' 需包含字母';
+            if (!hasSymbol) message += ' 需包含英文符号';
+            passwordValidation.innerHTML = message;
+        }
+        
+        return isValid;
+    }
+    
+    // 检查密码是否匹配
+    function checkPasswordMatch() {
+        const password = registerPassword.value;
+        const confirm = confirmPassword.value;
+        
+        if (confirm.length === 0) {
+            passwordMatch.className = 'mt-1 text-xs hidden';
+            return false;
+        }
+        
+        if (password === confirm) {
+            passwordMatch.className = 'mt-1 text-xs text-green-600';
+            passwordMatch.innerHTML = '<i class="fa fa-check-circle mr-1"></i> 密码匹配';
+            return true;
+        } else {
+            passwordMatch.className = 'mt-1 text-xs text-red-600';
+            passwordMatch.innerHTML = '<i class="fa fa-exclamation-circle mr-1"></i> 密码不匹配';
+            return false;
+        }
+    }
+    
+    // 切换密码可见性
+    function togglePasswordVisibility(passwordInput, toggleButton) {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        if (type === 'password') {
+            toggleButton.innerHTML = '<i class="fa fa-eye-slash"></i>';
+        } else {
+            toggleButton.innerHTML = '<i class="fa fa-eye"></i>';
+        }
+    }
+    
+    // 事件监听器
+    showRegisterBtn.addEventListener('click', function() {
+        loginSection.classList.add('hidden');
+        registerSection.classList.remove('hidden');
+    });
+    
+    showLoginBtn.addEventListener('click', function() {
+        registerSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+    });
+    
+    logoutBtn.addEventListener('click', function() {
+        studentInfoSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+        showToast('已成功退出登录');
+    });
+    
+    toggleLoginPassword.addEventListener('click', function() {
+        togglePasswordVisibility(loginPassword, toggleLoginPassword);
+    });
+    
+    toggleRegisterPassword.addEventListener('click', function() {
+        togglePasswordVisibility(registerPassword, toggleRegisterPassword);
+    });
+    
+    registerPassword.addEventListener('input', function() {
+        validatePassword(this.value);
+        checkPasswordMatch();
+    });
+    
+    confirmPassword.addEventListener('input', function() {
+        checkPasswordMatch();
+    });
+    
+    provinceSelect.addEventListener('change', updateCities);
+    
+    citySelect.addEventListener('change', function() {
+        // 修复：普通省份选择城市时触发区县更新
+        updateDistricts();
+    });
+    
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('login-username').value;
+        const password = loginPassword.value;
+        
+        if (!username || !password) {
+            showToast('请输入用户名和密码', false);
+            return;
+        }
+        
+        showToast('登录成功，正在进入系统...');
+        setTimeout(() => {
+            loginSection.classList.add('hidden');
+            studentInfoSection.classList.remove('hidden');
+        }, 1000);
+    });
+    
+    registerForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('register-username').value;
+        const password = registerPassword.value;
+        const confirm = confirmPassword.value;
+        
+        if (!username) {
+            showToast('请输入用户名', false);
+            return;
+        }
+        
+        if (!validatePassword(password)) {
+            showToast('密码不符合要求', false);
+            return;
+        }
+        
+        if (!checkPasswordMatch()) {
+            showToast('两次输入的密码不匹配', false);
+            return;
+        }
+        
+        showToast('注册成功，请登录');
+        setTimeout(() => {
+            registerSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            registerForm.reset();
+            passwordValidation.className = 'mt-1 text-xs hidden';
+            passwordMatch.className = 'mt-1 text-xs hidden';
+        }, 1000);
+    });
+    
+    studentInfoForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const birthdate = document.getElementById('birthdate').value;
+        const birthdatePattern = /^\d{8}$/;
+        if (!birthdatePattern.test(birthdate)) {
+            showToast('出生日期格式不正确，请使用yyyymmdd格式', false);
+            return;
+        }
+        
+        showToast('学生信息保存成功');
+    });
+    
+    // 初始化省份数据
+    initProvinces();
+});
     </script>
 </body>
 </html>
