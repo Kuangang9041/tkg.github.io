@@ -48,7 +48,7 @@
         <!-- 头部标题 -->
         <header class="text-center mb-10">
             <div class="flex items-center justify-center mb-3">
-                <img src="https://picsum.photos/60/60" alt="上海第二工业大学校徽" class="w-15 h-12 mr-3">
+                <img src="images/校徽.jpg" alt="上海第二工业大学校徽" class="w-15 h-12 mr-3">
                 <h1 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-primary">上海第二工业大学</h1>
             </div>
             <p class="text-gray-600 text-lg">学生信息管理系统</p>
@@ -229,56 +229,34 @@
                   <!-- 联系信息 -->
 <div class="border-b border-gray-200 pb-6">
     <h3 class="text-lg font-semibold mb-4 text-gray-800">联系信息</h3>
-
- <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">通讯地址 <span class="text-red-500">*</span></label>
-                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                                    <select id="province" name="province" required
-                                        class="w-full px-1 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-white">
-                                        <option value="">请选择省份</option>
-                                    </select>
-                                    
-                                    <select id="city" name="city" disabled required
-                                        class="w-full px-1 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-gray-50">
-                                        <option value="">请选择城市</option>
-                                    </select>
-                                    
-                                    <select id="district" name="district" disabled required
-                                        class="w-full px-1 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-gray-50">
-                                        <option value="">请选择区县</option>
-                                    </select>
-
-                                    <select id="town" name="town" disabled required
-                                        class="w-full px-1 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-gray-50">
-                                        <option value="">请选择乡镇</option>
-                                    </select>
-                        </div>
-                       <div class="py-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                            <input type="text" id="village" name="village" required
-                                class="w-full px-1 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200"
-                                placeholder="*路*弄/村">
-                        </div>
-
-                        <div>
-                            <input type="text" id="address" name="address" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200"
-                                placeholder="*号*室">
-                      </div>
-                     </div>
-                    </div>
-
     
     <!-- 第一行：通讯地址 + 邮政编码 -->
     <div class="flex flex-col md:flex-row gap-5 mb-5">
-        <!-- 邮政编码：固定宽度 w-36，比邮箱短 -->
+        <!-- 通讯地址：flex-grow:1 占满行内剩余空间，比邮编长 -->
+        <div class="flex-1">
+            <label for="address" class="block text-sm font-medium text-gray-700 mb-1">通讯地址 <span class="text-red-500">*</span></label>
+            <input type="text" id="address" name="address" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200"
+                placeholder="例如：上海市浦东新区金海路2360号">
+        </div>
+        <!-- 邮政编码：固定宽度 w-36，比地址短 -->
         <div class="w-full md:w-36">
             <label for="postal-code" class="block text-sm font-medium text-gray-700 mb-1">邮政编码 <span class="text-red-500">*</span></label>
             <input type="text" id="postal-code" name="postal-code" required
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200"
                 placeholder="例如：201209">
         </div>
+    </div>
 
+    <!-- 第二行：电子邮箱 + 手机号码 -->
+    <div class="flex flex-col md:flex-row gap-5">
+        <!-- 电子邮箱：flex-grow:1 占满行内剩余空间，比手机长 -->
+        <div class="flex-1">
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">电子邮箱 <span class="text-red-500">*</span></label>
+            <input type="email" id="email" name="email" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200"
+                placeholder="例如：student@suibe.edu.cn">
+        </div>
         <!-- 手机号码：固定宽度 w-44，比邮箱短 -->
         <div class="w-full md:w-44">
             <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">手机号码 <span class="text-red-500">*</span></label>
@@ -286,14 +264,7 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200"
                 placeholder="例如：13800138000">
         </div>
-        <!-- 电子邮箱：flex-grow:1 占满行内剩余空间，比邮政编码以及手机号码长 -->
-        <div class="flex-1">
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">电子邮箱 <span class="text-red-500">*</span></label>
-            <input type="email" id="email" name="email" required
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200"
-                placeholder="例如：student@suibe.edu.cn">
-        </div>
-
+    </div>
 </div>
                     
                     <!-- 户籍与出生信息 -->
@@ -319,25 +290,23 @@
                             
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">出生地 <span class="text-red-500">*</span></label>
-                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                                    <select id="birth-province" name="birth-province" required
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <select id="province" name="province" required
                                         class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-white">
                                         <option value="">请选择省份</option>
+                                        <!-- 省份数据将通过JavaScript动态加载 -->
                                     </select>
                                     
-                                    <select id="birth-city" name="birth-city" disabled required
+                                    <select id="city" name="city" disabled required
                                         class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-gray-50">
-                                        <option value="">请选择城市</option>
+                                        <option value="">请先选择省份</option>
+                                        <!-- 城市数据将通过JavaScript动态加载 -->
                                     </select>
                                     
-                                    <select id="birth-district" name="birth-district" disabled required
+                                    <select id="district" name="district" disabled required
                                         class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-gray-50">
-                                        <option value="">请选择区县</option>
-                                    </select>
-
-                                    <select id="birth-town" name="birth-town" disabled required
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200 bg-gray-50">
-                                        <option value="">请选择乡镇</option>
+                                        <option value="">请先选择城市</option>
+                                        <!-- 区县数据将通过JavaScript动态加载 -->
                                     </select>
                                 </div>
                             </div>
@@ -362,14 +331,14 @@
                             </div>
                             
                             <div>
-                                <label for="father-unit" class="block text-sm font-medium text-gray-700 mb-1">父亲单位 <span class="text-red-500">*</span></label>
-                                <input type="text" id="father-unit" name="father-unit" required
+                                <label for="father-name" class="block text-sm font-medium text-gray-700 mb-1">父亲单位 <span class="text-red-500">*</span></label>
+                                <input type="text" id="father-name" name="father-name" required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200">
                             </div>
                             
                             <div>
-                                <label for="father-job" class="block text-sm font-medium text-gray-700 mb-1">父亲职业 <span class="text-red-500">*</span></label>
-                                <input type="text" id="father-job" name="father-job" required
+                                <label for="father-name" class="block text-sm font-medium text-gray-700 mb-1">父亲职业 <span class="text-red-500">*</span></label>
+                                <input type="text" id="father-name" name="father-name" required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200">
                             </div>
                             
@@ -386,14 +355,14 @@
                             </div>
 
                            <div>
-                                <label for="mother-unit" class="block text-sm font-medium text-gray-700 mb-1">母亲单位 <span class="text-red-500">*</span></label>
-                                <input type="text" id="mother-unit" name="mother-unit" required
+                                <label for="mother-name" class="block text-sm font-medium text-gray-700 mb-1">母亲单位 <span class="text-red-500">*</span></label>
+                                <input type="text" id="mother-name" name="mother-name" required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200">
                             </div>
                             
                            <div>
-                                <label for="mother-job" class="block text-sm font-medium text-gray-700 mb-1">母亲职业<span class="text-red-500">*</span></label>
-                                <input type="text" id="mother-job" name="mother-job" required
+                                <label for="mother-name" class="block text-sm font-medium text-gray-700 mb-1">母亲职业<span class="text-red-500">*</span></label>
+                                <input type="text" id="mother-name" name="mother-name" required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input-focus transition duration-200">
                             </div>
                         
@@ -429,7 +398,6 @@
     </div>
     
     <!-- 消息提示框 -->
-    
     <div id="toast" class="fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0 flex items-center">
         <i id="toast-icon" class="mr-2"></i>
         <span id="toast-message"></span>
@@ -463,228 +431,115 @@ document.addEventListener('DOMContentLoaded', function() {
     // 学生信息表单
     const studentInfoForm = document.getElementById('student-info-form');
     
-    // 存储从JSON加载的四级行政区划数据（带code和name）
-    let pcasData = [];
-    // 直辖市列表（用于特殊处理）
+    // 地区选择相关元素
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+    const districtSelect = document.getElementById('district');
+    
+    // 定义直辖市列表
     const municipalities = ["北京市", "上海市", "天津市", "重庆市"];
-
-    // 1. 加载带区划代码的pcas-code.json数据
-    fetch('pcas-code.json')
-        .then(response => {
-            if (!response.ok) throw new Error('pcas-code.json文件加载失败');
-            return response.json();
-        })
-        .then(data => {
-            pcasData = data; // 数据结构：[{code: "110000", name: "北京市", children: [...]}, ...]
-            // 初始化两套四级下拉框（通讯地址 + 出生地）
-            initLocationSelects(
-                'province', 
-                'city', 
-                'district', 
-                'town'
-            );
-            initLocationSelects(
-                'birth-province', 
-                'birth-city', 
-                'birth-district', 
-                'birth-town'
-            );
-        })
-        .catch(error => {
-            console.error('行政区划数据加载失败:', error);
-            showToast('地区数据加载失败，请检查pcas-code.json文件', false);
-        });
-
-    // 2. 初始化四级联动下拉框（省/市/区县/乡镇）
-    function initLocationSelects(provinceId, cityId, districtId, townId) {
-        const provinceSel = document.getElementById(provinceId);
-        const citySel = document.getElementById(cityId);
-        const districtSel = document.getElementById(districtId);
-        const townSel = document.getElementById(townId);
-
-        // 初始化省份下拉框（value存code，显示name）
-        provinceSel.innerHTML = '<option value="">请选择省份</option>';
-        pcasData.forEach(province => {
+    
+    // 地区数据
+    const locationData = {
+        "北京市": {
+            "北京市": ["东城区", "西城区", "朝阳区", "丰台区", "石景山区", "海淀区", "顺义区", "通州区", "大兴区", "房山区", "门头沟区", "昌平区", "平谷区", "密云区", "怀柔区", "延庆区"]
+        },
+        "上海市": {
+            "上海市": ["黄浦区", "徐汇区", "长宁区", "静安区", "普陀区", "虹口区", "杨浦区", "闵行区", "宝山区", "嘉定区", "浦东新区", "金山区", "松江区", "青浦区", "奉贤区", "崇明区"]
+        },
+        "天津市": {
+            "天津市": ["和平区", "河东区", "河西区", "南开区", "河北区", "红桥区", "东丽区", "西青区", "津南区", "北辰区", "武清区", "宝坻区", "滨海新区", "宁河区", "静海区", "蓟州区"]
+        },
+        "重庆市": {
+            "重庆市": ["万州区", "黔江区", "涪陵区", "渝中区", "大渡口区", "江北区", "沙坪坝区", "九龙坡区", "南岸区", "北碚区", "渝北区", "巴南区", "长寿区", "江津区", "合川区"]
+        },
+        "江苏省": {
+            "南京市": ["玄武区", "秦淮区", "建邺区", "鼓楼区", "浦口区", "栖霞区", "雨花台区", "江宁区", "六合区", "溧水区", "高淳区"],
+            "苏州市": ["姑苏区", "虎丘区", "吴中区", "相城区", "吴江区", "常熟市", "张家港市", "昆山市", "太仓市"],
+            "无锡市": ["梁溪区", "锡山区", "惠山区", "滨湖区", "新吴区", "江阴市", "宜兴市"]
+        },
+        "浙江省": {
+            "杭州市": ["上城区", "下城区", "江干区", "拱墅区", "西湖区", "滨江区", "萧山区", "余杭区", "富阳区", "临安区", "桐庐县", "淳安县", "建德市"],
+            "宁波市": ["海曙区", "江北区", "北仑区", "镇海区", "鄞州区", "奉化区", "象山县", "宁海县", "余姚市", "慈溪市"]
+        }
+    };
+    
+    // 初始化省份下拉框
+    function initProvinces() {
+        provinceSelect.innerHTML = '<option value="">请选择省份</option>';
+        
+        Object.keys(locationData).forEach(province => {
             const option = document.createElement('option');
-            option.value = province.code; // 存储区划代码（如"110000"）
-            option.textContent = province.name; // 显示名称（如"北京市"）
-            option.setAttribute('data-name', province.name); // 存储名称方便后续获取
-            provinceSel.appendChild(option);
-        });
-
-        // 绑定各级联动事件
-        provinceSel.addEventListener('change', () => {
-            updateCityOptions(provinceId, cityId, districtId, townId);
-        });
-        citySel.addEventListener('change', () => {
-            updateDistrictOptions(provinceId, cityId, districtId, townId);
-        });
-        districtSel.addEventListener('change', () => {
-            updateTownOptions(provinceId, cityId, districtId, townId);
+            option.value = province;
+            option.textContent = province;
+            provinceSelect.appendChild(option);
         });
     }
-
-    // 3. 根据选中的省份更新城市下拉框（基于code匹配）
-// 3. 根据选中的省份更新城市下拉框（基于code匹配）
-function updateCityOptions(provinceId, cityId, districtId, townId) {
-    const provinceSel = document.getElementById(provinceId);
-    const citySel = document.getElementById(cityId);
-    const districtSel = document.getElementById(districtId);
-    const townSel = document.getElementById(townId);
-    const selectedProvinceCode = provinceSel.value;
-    const selectedProvinceName = provinceSel.options[provinceSel.selectedIndex]?.getAttribute('data-name') || '';
-
-    // 重置：先恢复城市框默认状态（显示+启用），避免残留样式
-    citySel.innerHTML = '<option value="">请选择城市</option>';
-    citySel.classList.remove('hidden'); // 移除隐藏样式
-    citySel.disabled = false;
-
-    // 重置下级区县/乡镇框
-    districtSel.innerHTML = '<option value="">请选择区县</option>';
-    townSel.innerHTML = '<option value="">请选择乡镇</option>';
-    districtSel.disabled = true;
-    townSel.disabled = true;
-
-    // 未选择省份时，禁用城市框
-    if (!selectedProvinceCode) {
-        citySel.disabled = true;
-        return;
+    
+    // 根据选中的省份更新城市下拉框
+    function updateCities() {
+        const selectedProvince = provinceSelect.value;
+        
+        // 重置状态
+        citySelect.innerHTML = '';
+        districtSelect.innerHTML = '<option value="">请先选择城市</option>';
+        districtSelect.disabled = true;
+        citySelect.classList.remove('hidden');
+        
+        if (selectedProvince && locationData[selectedProvince]) {
+            if (municipalities.includes(selectedProvince)) {
+                // 直辖市处理逻辑
+                citySelect.classList.add('hidden');
+                const defaultCity = Object.keys(locationData[selectedProvince])[0];
+                updateDistricts(selectedProvince, defaultCity);
+            } else {
+                // 普通省份处理逻辑
+                citySelect.disabled = false;
+                citySelect.innerHTML = '<option value="">请选择城市</option>';
+                
+                Object.keys(locationData[selectedProvince]).forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        } else {
+            citySelect.disabled = true;
+            citySelect.innerHTML = '<option value="">请先选择省份</option>';
+        }
     }
-
-    // 查找选中省份的子级数据（城市级）
-    const provinceData = pcasData.find(item => item.code === selectedProvinceCode);
-    if (!provinceData || !provinceData.children || provinceData.children.length === 0) {
-        citySel.innerHTML = '<option value="">暂无城市数据</option>';
-        citySel.disabled = true;
-        return;
-    }
-
-    // -------------------------- 核心：直辖市处理（隐藏“市辖区”城市框） --------------------------
-    if (municipalities.includes(selectedProvinceName)) {
-        // 1. 提取直辖市的“市辖区”数据（默认只有一个子级，即“市辖区”）
-        const cityData = provinceData.children.find(city => city.name === "市辖区");
-        if (!cityData) {
-            citySel.innerHTML = '<option value="">暂无城市数据</option>';
-            citySel.disabled = true;
-            return;
+    
+    // 修复：根据选中的城市更新区县下拉框
+    function updateDistricts(selectedProvince, selectedCity) {
+        // 确定当前选中的省份和城市
+        const province = selectedProvince || provinceSelect.value;
+        const city = selectedCity || citySelect.value;
+        
+        // 清空区县下拉框
+        districtSelect.innerHTML = '';
+        
+        // 检查是否有有效的省份和城市数据
+        if (province && city && locationData[province] && locationData[province][city]) {
+            // 加载区县数据
+            districtSelect.disabled = false;
+            districtSelect.innerHTML = '<option value="">请选择区县</option>';
+            
+            locationData[province][city].forEach(district => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        } else {
+            // 根据不同情况显示不同提示
+            if (!province) {
+                districtSelect.innerHTML = '<option value="">请先选择省份</option>';
+            } else {
+                districtSelect.innerHTML = '<option value="">请先选择城市</option>';
+            }
+            districtSelect.disabled = true;
         }
-
-        // 2. 隐藏城市下拉框（不占用页面空间）
-        citySel.classList.add('hidden');
-
-        // 3. 自动填充“市辖区”数据到城市框（确保表单提交时能获取值，避免校验失败）
-        citySel.innerHTML = `
-            <option value="${cityData.code}" data-name="${cityData.name}" selected>
-                ${cityData.name}
-            </option>
-        `;
-
-        // 4. 直接加载区县数据（跳过城市选择步骤）
-        updateDistrictOptions(provinceId, cityId, districtId, townId);
-    } 
-    // -------------------------- 普通省份处理（保持原逻辑不变） --------------------------
-    else {
-        // 普通省份：渲染所有城市选项，供用户选择
-        provinceData.children.forEach(city => {
-            const option = document.createElement('option');
-            option.value = city.code;
-            option.textContent = city.name;
-            option.setAttribute('data-name', city.name);
-            citySel.appendChild(option);
-        });
-    }
-}
-    // 4. 根据选中的城市更新区县下拉框（基于code匹配）
-    function updateDistrictOptions(provinceId, cityId, districtId, townId) {
-        const provinceSel = document.getElementById(provinceId);
-        const citySel = document.getElementById(cityId);
-        const districtSel = document.getElementById(districtId);
-        const townSel = document.getElementById(townId);
-        const selectedProvinceCode = provinceSel.value;
-        const selectedCityCode = citySel.value; // 获取选中城市的code
-
-        // 重置下级下拉框
-        districtSel.innerHTML = '<option value="">请选择区县</option>';
-        townSel.innerHTML = '<option value="">请选择乡镇</option>';
-        districtSel.disabled = false;
-        townSel.disabled = true;
-
-        if (!selectedProvinceCode || !selectedCityCode) {
-            districtSel.disabled = true;
-            return;
-        }
-
-        // 查找选中城市的子级区县（用code匹配）
-        const provinceData = pcasData.find(p => p.code === selectedProvinceCode);
-        if (!provinceData) {
-            districtSel.disabled = true;
-            return;
-        }
-
-        const cityData = provinceData.children.find(c => c.code === selectedCityCode);
-        if (!cityData || !cityData.children || cityData.children.length === 0) {
-            districtSel.innerHTML = '<option value="">暂无区县数据</option>';
-            districtSel.disabled = true;
-            return;
-        }
-
-        // 加载区县数据
-        cityData.children.forEach(district => {
-            const option = document.createElement('option');
-            option.value = district.code; // 存储区县code
-            option.textContent = district.name; // 显示区县名称
-            option.setAttribute('data-name', district.name);
-            districtSel.appendChild(option);
-        });
-    }
-
-    // 5. 根据选中的区县更新乡镇下拉框（基于code匹配）
-    function updateTownOptions(provinceId, cityId, districtId, townId) {
-        const provinceSel = document.getElementById(provinceId);
-        const citySel = document.getElementById(cityId);
-        const districtSel = document.getElementById(districtId);
-        const townSel = document.getElementById(townId);
-        const selectedProvinceCode = provinceSel.value;
-        const selectedCityCode = citySel.value;
-        const selectedDistrictCode = districtSel.value; // 获取选中区县的code
-
-        // 重置乡镇下拉框
-        townSel.innerHTML = '<option value="">请选择乡镇</option>';
-        townSel.disabled = false;
-
-        if (!selectedProvinceCode || !selectedCityCode || !selectedDistrictCode) {
-            townSel.disabled = true;
-            return;
-        }
-
-        // 查找选中区县的子级乡镇（用code匹配）
-        const provinceData = pcasData.find(p => p.code === selectedProvinceCode);
-        if (!provinceData) {
-            townSel.disabled = true;
-            return;
-        }
-
-        const cityData = provinceData.children.find(c => c.code === selectedCityCode);
-        if (!cityData) {
-            townSel.disabled = true;
-            return;
-        }
-
-        const districtData = cityData.children.find(d => d.code === selectedDistrictCode);
-        if (!districtData || !districtData.children || districtData.children.length === 0) {
-            townSel.innerHTML = '<option value="">暂无乡镇数据</option>';
-            townSel.disabled = true;
-            return;
-        }
-
-        // 加载乡镇数据
-        districtData.children.forEach(town => {
-            const option = document.createElement('option');
-            option.value = town.code; // 存储乡镇code
-            option.textContent = town.name; // 显示乡镇名称
-            option.setAttribute('data-name', town.name);
-            townSel.appendChild(option);
-        });
     }
     
     // 显示提示消息
@@ -797,6 +652,13 @@ function updateCityOptions(provinceId, cityId, districtId, townId) {
         checkPasswordMatch();
     });
     
+    provinceSelect.addEventListener('change', updateCities);
+    
+    citySelect.addEventListener('change', function() {
+        // 修复：普通省份选择城市时触发区县更新
+        updateDistricts();
+    });
+    
 loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -809,7 +671,7 @@ loginForm.addEventListener('submit', function(e) {
         return;
     }
     
-    // 2. 验证登录密码是否符合规则
+    // 2. 新增：验证登录密码是否符合规则（调用已有的validatePassword函数）
     if (!validatePassword(password)) {
         showToast('密码不符合要求：需至少8个字符，且包含数字、字母和英文符号', false);
         return;
@@ -865,15 +727,11 @@ loginForm.addEventListener('submit', function(e) {
             return;
         }
         
-        // 示例：获取选中的行政区划代码和名称（可根据需要调整）
-        const provinceSel = document.getElementById('province');
-        const selectedProvinceCode = provinceSel.value;
-        const selectedProvinceName = provinceSel.options[provinceSel.selectedIndex].getAttribute('data-name');
-        
         showToast('学生信息保存成功');
-        console.log('选中地区代码：', selectedProvinceCode);
-        console.log('选中地区名称：', selectedProvinceName);
     });
+    
+    // 初始化省份数据
+    initProvinces();
 });
     </script>
 </body>
